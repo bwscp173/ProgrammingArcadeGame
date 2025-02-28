@@ -1,17 +1,25 @@
 /*==================================================
 
 
-File             :  ActiveGame.java
+File                     :  ActiveGame.java
 
-date             :  28/2/2025
+date                     :  28/2/2025
 
-Author           :  Benedict Ward
+Author                   :  Benedict Ward
 
-Description      :  this class and CabinetGame counts up to 10 marks 
+Description              :  this class and CabinetGame counts up to 10 marks 
 
-History          :  28/2/2025 v1.0 - added code
-                                     4:19pm fixed edge case where the characters 
-                                     where not checked only the length was
+
+Possible Exceptions      :  InvalidGameIdException
+
+
+History                  :  28/2/2025 v1.0 - added code
+                                            4:19pm fixed edge case where the characters 
+                                            where not checked only the length was
+
+                            28/2/2025 v1.01 - added possible exceptions in the header
+                                              added a toString method
+                                              9:08 fixed the isAllAphanumeic function and logic using that value
 
 
 ==================================================*/
@@ -28,33 +36,34 @@ class InvalidGameIdException extends Exception{
 
 
 public class ActiveGame extends ArcadeGame{
-    private final int AgeRequirement;  // only needs accessor for this field not setter
-    public ActiveGame(String GameID, int PricePerPlay, String Name, int AgeRequirement) throws InvalidGameIdException{
-        super(GameID,PricePerPlay,Name);
-        this.AgeRequirement = AgeRequirement;
+    protected int ageRequirement;  // only needs accessor for this field not setter
+    public ActiveGame(String gameId, int pricePerPlay, String name, int ageRequirement) throws InvalidGameIdException{
+        super(gameId,pricePerPlay,name);
+        this.ageRequirement = ageRequirement;
 
-        //validating GameID
-        if(!GameID.startsWith("A")){
-            throw new InvalidGameIdException("GameID invalid, does not start is a 'C'.");
+        //validating gameId
+        if(!gameId.startsWith("A")){
+            throw new InvalidGameIdException("gameId invalid, does not start is a 'C'.");
         }
         //TODO fix potental edge case where  the 10 characters are not all alphanumeric characters
-        else if(!(isAllAlphanumeric(GameID) && (GameID.length() != 10))){
-            throw new InvalidGameIdException("GameID invalid, does not contain exactly 10 alphanumeric characters.");
+        else if(!(isAllAlphanumeric(gameId) && (gameId.length() == 10))){
+            System.out.println(isAllAlphanumeric(gameId) +":"+ (gameId.length() != 10) + gameId.length());
+            throw new InvalidGameIdException("gameId invalid, does not contain exactly 10 alphanumeric characters.");
         }
     }
 
     private boolean isAllAlphanumeric(String str){
         // gets each character of a given String and
         for (int i = 0; i < str.length(); i++) {
-            System.out.println(str.charAt(i));
-            if (Character.isDigit(str.charAt(i))){
-                return false;
-            }
-            if(Character.isLetter(str.charAt(i))){
+            if (!(Character.isDigit(str.charAt(i)) || Character.isLetter(str.charAt(i)))){
                 return false;
             }
         }
         return true;
+    }
+
+    public int getAgeRequirement() {
+        return ageRequirement;
     }
 
     @Override
@@ -63,13 +72,14 @@ public class ActiveGame extends ArcadeGame{
 
 
         if(canGetDiscounted){
-            return (int) (this.PricePerPlay * 0.8);  // 20% discount
+            return (int) (this.pricePerPlay * 0.8);  // 20% discount
         }
 
-        return this.PricePerPlay;
+        return this.pricePerPlay;
     }
 
-    public int getAgeRequirement() {
-        return AgeRequirement;
+    @Override
+    public String toString(){
+        return "This is a ActiveGame obj. gameId "+getGameId()+", pricePerPlay "+getPricePerPlay()+", name "+getName()+", ageRequirement "+getAgeRequirement();
     }
 }

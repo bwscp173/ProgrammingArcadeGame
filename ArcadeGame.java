@@ -1,58 +1,60 @@
 /*==================================================
 
 
-File             :  ArcadeGame.java
+File                     :  ArcadeGame.java
 
-date             :  28/2/2025
+date                     :  28/2/2025
 
-Author           :  Benedict Ward
+Author                   :  Benedict Ward
 
-Description      :  this class counts up to 10 marks 
-                    the simple constuctor accessor and mutator methods.
-                    with the class it's self being abstract along with calculatePrice
-                    for "basis for the cabinet game and active game subclasses".
+Description              :  this class counts up to 10 marks 
+                            the simple constuctor accessor and mutator methods.
+                            with the class it's self being abstract along with calculatePrice
+                            for "basis for the cabinet game and active game subclasses".
 
-History          :  28/2/2025 v1.0 - added the constructor and calculatePrice
-                                     plus accessor and mutator methods.
 
+                            
+History                  :  28/2/2025 v1.0 - added the constructor and calculatePrice
+                                             plus accessor and mutator methods.
+                                             8:53pm added the this keyword in the accessor methods
 
 ==================================================*/
 
 
 
 public abstract class ArcadeGame{
-    String GameID;  // also known as serial number
-    int PricePerPlay;
-    String Name;
-    public ArcadeGame(String GameID, int PricePerPlay, String Name){
-        this.GameID = GameID;
-        this.PricePerPlay = PricePerPlay;
-        this.Name = Name;   
+    protected String gameId;  // also known as serial number
+    protected int pricePerPlay;
+    protected String name;
+    public ArcadeGame(String gameId, int pricePerPlay, String name){
+        this.gameId = gameId;
+        this.pricePerPlay = pricePerPlay;
+        this.name = name;   
     }
 
     protected abstract int calculatePrice(boolean peak);
 
-    public String getGameID() {
-        return GameID;
+    public String getGameId() {
+        return this.gameId;
     }
 
-    public void setGameID(String GameID) {
-        this.GameID = GameID;
+    public void setGameId(String gameId) {
+        this.gameId = gameId;
     }
 
     public int getPricePerPlay() {
-        return PricePerPlay;
+        return this.pricePerPlay;
     }
 
-    public void setPricePerPlay(int PricePerPlay) {
-        this.PricePerPlay = PricePerPlay;
+    public void setPricePerPlay(int pricePerPlay) {
+        this.pricePerPlay = pricePerPlay;
     }
 
     public String getName() {
-        return Name;
+        return this.name;
     }
 
-    public void setName(String Name) {
-        this.Name = Name;
+    public void setName(String name) {
+        this.name = name;
     }
 }

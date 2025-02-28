@@ -12,9 +12,21 @@ Description      :  worth upto 5 marks, this class will handle all VR games the 
 
 History          :  28/2/2025 v1.0 - added all the code then did the testing as shown in the
                                      main when commented out
-
+                                     6:05pm fixed the tostring saying cabinetgame obj.
+                                     8:036pm fixed the constructor not asking for ageRequirement
+                                     and just parsing in pricePerPlay twise
+                                     9:11 fixed the isAllAphanumeic function and logic using that value
 
 ==================================================*/
+
+
+
+class InvalidGameIdException extends Exception{
+    public InvalidGameIdException(){}
+    public InvalidGameIdException(String message){
+        super(message);
+    }
+}
 
 
 
@@ -26,34 +38,32 @@ public class VirtualRealityGame extends ActiveGame{
                                 HEADSETANDCONTROLLER};
     
 
-    public VirtualRealityGame(String GameID, int PricePerPlay, String Name, String ControlType) throws InvalidGameIdException{
-        super(GameID, PricePerPlay, Name, PricePerPlay);
+    public VirtualRealityGame(String gameId, int pricePerPlay, String Name, int ageRequirement, String ControlType) throws InvalidGameIdException{
+        super(gameId, pricePerPlay, Name, ageRequirement);
 
         switch (ControlType) {
+
             // TODO check if this is allowed on the pass server
             case "headsetOnly" -> this.ControlType = EnumControlTypes.HEADSETONLY;
             case "fullBodyTracking" -> this.ControlType = EnumControlTypes.FULLBODYTRACKING;
             case "headsetAndController" -> this.ControlType = EnumControlTypes.HEADSETANDCONTROLLER;
         }
 
-        //validating GameID
-        if(!GameID.startsWith("AV")){
-            throw new InvalidGameIdException("GameID invalid, does not start is a 'AV'.");
+        //validating gameId
+        if(!gameId.startsWith("AV")){
+            throw new InvalidGameIdException("gameId invalid, does not start is a 'AV'.");
         }
         //TODO fix potental edge case where  the 10 characters are not all alphanumeric characters
-        else if(!(isAllAlphanumeric(GameID) && (GameID.length() != 10))){
-            throw new InvalidGameIdException("GameID invalid, does not contain exactly 10 alphanumeric characters.");
+        else if(!(isAllAlphanumeric(gameId) && (gameId.length() == 10))){
+            System.out.println(isAllAlphanumeric(gameId) +":"+ (gameId.length() != 10) + gameId.length());
+            throw new InvalidGameIdException("gameId invalid, does not contain exactly 10 alphanumeric characters.");
         }
     }
 
     private boolean isAllAlphanumeric(String str){
         // gets each character of a given String and
         for (int i = 0; i < str.length(); i++) {
-            System.out.println(str.charAt(i));
-            if (Character.isDigit(str.charAt(i))){
-                return false;
-            }
-            if(Character.isLetter(str.charAt(i))){
+            if (!(Character.isDigit(str.charAt(i)) || Character.isLetter(str.charAt(i)))){
                 return false;
             }
         }
@@ -89,34 +99,34 @@ public class VirtualRealityGame extends ActiveGame{
             }
 
         }
-        return (int) Math.floor(this.PricePerPlay * totalDiscount);
+        return (int) Math.floor(this.pricePerPlay * totalDiscount);
     }
 
     @Override
     public String toString(){
-        String toReturn = "This is a CabinetGame obj, GameID: %,PricePerPlay: %, Name: %,ControlType: %";
-        return String.format(toReturn, this.GameID, this.PricePerPlay, this.Name, this.ControlType);
+        String toReturn = "This is a VirtualRealityGame obj, gameId: %,pricePerPlay: %, Name: %,ControlType: %";
+        return String.format(toReturn, getGameId(), this.pricePerPlay, this.name, this.ControlType);
     }
 
     public static void main(String[] args) throws InvalidGameIdException {
         //Testing took place on 28/02/25 around 12-1:30
-        //String GameID, int PricePerPlay, String Name, String ControlType
+        //String gameId, int pricePerPlay, String Name, String ControlType
 
-        // expected restult: error, InvalidGameID as gameID does not start with a AV everything else should be valid though
-        //VirtualRealityGame GameIDTest1 = new VirtualRealityGame("GAMEID",200,"GAMENAME","headsetOnly");
-        // given result: i was correct, "InvalidGameIdException: GameID invalid, does not start is a 'C'."
+        // expected restult: error, InvalidgameId as gameId does not start with a AV everything else should be valid though
+        //VirtualRealityGame gameIdTest1 = new VirtualRealityGame("gameId",200,"GAMENAME","headsetOnly");
+        // given result: i was correct, "InvalidGameIdException: gameId invalid, does not start is a 'C'."
 
-        // expected restult: error InvalidGameID as gameID does not contain 10 alphanumeric characters.
-        //VirtualRealityGame GameIDTest2 = new VirtualRealityGame("CGAMEID",200,"GAMENAME","headsetOnly");
-        // given result: i was incorrect, "InvalidGameIdException: GameID invalid, does not start is a 'C'.".
-        // fix: simple spelling mistake and i will now input the correct GameID, 
+        // expected restult: error InvalidgameId as gameId does not contain 10 alphanumeric characters.
+        //VirtualRealityGame gameIdTest2 = new VirtualRealityGame("CgameId",200,"GAMENAME","headsetOnly");
+        // given result: i was incorrect, "InvalidGameIdException: gameId invalid, does not start is a 'C'.".
+        // fix: simple spelling mistake and i will now input the correct gameId, 
 
         // expected result: will throw an error for invalid String length.
-        //VirtualRealityGame GameIDTest3 = new VirtualRealityGame("AVGAMEID",200,"GAMENAME","headsetOnly");
-        // given result: i was correct, "InvalidGameIdException: GameID invalid, does not contain exactly 10 alphanumeric characters."
+        //VirtualRealityGame gameIdTest3 = new VirtualRealityGame("AVgameId",200,"GAMENAME","headsetOnly");
+        // given result: i was correct, "InvalidGameIdException: gameId invalid, does not contain exactly 10 alphanumeric characters."
 
         // expected restult: incorrectly passes, as i am incorrectly checking for alphanumeric characters by just checking the length.
-        //VirtualRealityGame GameIDTest4 = new VirtualRealityGame("AV♀♂GAMEID",200,"GAMENAME","headsetOnly");
+        //VirtualRealityGame gameIdTest4 = new VirtualRealityGame("AV♀♂gameId",200,"GAMENAME","headsetOnly");
         // given restuls: i was correct, no error message means it passes when it shouldnt of.
         // fix: i will rework/make the function to check the alphanumeric characters instead of just using .length()
 
@@ -132,7 +142,7 @@ public class VirtualRealityGame extends ActiveGame{
         // given result: i was correct, output is null
 
         //error stats:
-        // GameIDTest       expected pass rate : actual pass rate    (75%)
+        // gameIdTest       expected pass rate : actual pass rate    (75%)
         //                                   4 : 3
         
         // ControlTypeTest  expected pass rate : actual pass rate    (100%)

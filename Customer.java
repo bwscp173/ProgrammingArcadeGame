@@ -36,8 +36,17 @@ class AgeLimitException extends Exception{
 
 
 
+class InvalidGameIdException extends Exception{
+    public InvalidGameIdException(){}
+    public InvalidGameIdException(String message){
+        super(message);
+    }
+}
+
+
+
 public class Customer {
-    private String accountID;
+    private String accountId;
     private String Name;
     private int Age;
 
@@ -45,8 +54,8 @@ public class Customer {
     private enum EnumPersonalDiscounts {NONE,STAFF,STUDENT}  //REMINDER students will be allowed a negative balance of upto -500
     private int accountBalance;  // 100 = £1
     
-    public Customer(String accountID, String Name, int Age, String discountType){
-        this.accountID = accountID;
+    public Customer(String accountId, String Name, int Age, String discountType){
+        this.accountId = accountId;
         this.Name = Name;
         this.Age = Age;
         this.accountBalance = 0;
@@ -59,8 +68,8 @@ public class Customer {
         }
     }
 
-    public Customer(String accountID, String Name, int Age, String discountType, int initalBalance){
-        this.accountID = accountID;
+    public Customer(String accountId, String Name, int Age, String discountType, int initalBalance){
+        this.accountId = accountId;
         this.Name = Name;
         this.Age = Age;
         // this math.max function is used so the value can not be smaller then 0 but can go anywhere higher.
@@ -81,7 +90,7 @@ public class Customer {
         }
     }
 
-    public void chargeAcconut(ArcadeGame arcadeGameObj, boolean peakTime) throws InsufficientBalanceException, AgeLimitException{        
+    public int chargeAcconut(ArcadeGame arcadeGameObj, boolean peakTime) throws InsufficientBalanceException, AgeLimitException{        
         double discountFactor = 1;
         boolean canGoNegative = false;
 
@@ -114,7 +123,7 @@ public class Customer {
             }
 
             this.accountBalance -= price;
-
+            return price;  // returns an int equal to the amount the customer was charged
         }
         else{
             throw new InsufficientBalanceException("the price is," + price + ". and you only have, " + this.accountBalance);
@@ -133,8 +142,8 @@ public class Customer {
         return this.personalDiscount == EnumPersonalDiscounts.STUDENT;
     }
 
-    public String getAccountID(){
-        return this.accountID;
+    public String getAccountId(){
+        return this.accountId;
     }
     public String getName(){
         return this.Name;
@@ -151,7 +160,7 @@ public class Customer {
 
     @Override
     public String toString(){
-        return "This is a Customer object. accountID, "+getAccountID()+", name "+getName()+", age "+getAge()+", discounttype "+getPersonalDiscount()+", balance "+getAccountBalance();
+        return "This is a Customer object. accountID, "+getAccountId()+", name "+getName()+", age "+getAge()+", discounttype "+getPersonalDiscount()+", balance "+getAccountBalance();
     }
 
     public static void main(String[] args) throws InvalidGameIdException,InsufficientBalanceException, AgeLimitException {
@@ -165,7 +174,7 @@ public class Customer {
         //    customer.chargeAcconut(ag, true);
         //    System.out.println(i +" : "+ customer.toString());
         //}
-        // actual result: looped 3 times then gave an error because the PricePerPlay was discounted and i forgot to account for that 
+        // actual result: looped 3 times then gave an error because the pricePerPlay was discounted and i forgot to account for that 
         // correction: well it shouldnt of been discounted as its peakTime, 
         // fix: added a not to canGetDiscounted in ActiveGame
         // after re running it gave the expected result of looping 2 times, error on the 3rd.
@@ -192,8 +201,8 @@ public class Customer {
 //                             HEADSETANDCONTROLLER};
 
 
-// public VirtualRealityGame(String GameID, int PricePerPlay, String Name, String ControlType) throws InvalidGameIdException{
-//     super(GameID, PricePerPlay, Name, PricePerPlay);
+// public VirtualRealityGame(String gameId, int pricePerPlay, String Name, String ControlType) throws InvalidGameIdException{
+//     super(gameId, pricePerPlay, Name, pricePerPlay);
 
 //     switch (ControlType) {
 //         // TODO check if this is allowed on the pass server

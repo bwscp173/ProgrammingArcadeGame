@@ -12,7 +12,7 @@ Description      :  this class and ActiveGame counts up to 10 marks,
 History          :  28/2/2025 v1.0 - added code
                                      4:17pm fixed edge case where the characters 
                                      where not checked only the length was
-
+                                     9:11pm fixed the isAllAphanumeic function and logic using that value
 
 ==================================================*/
 
@@ -28,34 +28,30 @@ class InvalidGameIdException extends Exception{
 
 public class CabinetGame extends ArcadeGame{
     private final boolean givesReward;  // only needs a accessor method
-    public CabinetGame(String GameID, int PricePerPlay, String Name, boolean givesReward) throws InvalidGameIdException{
-        super(GameID,PricePerPlay,Name);
+    public CabinetGame(String gameId, int pricePerPlay, String Name, boolean givesReward) throws InvalidGameIdException{
+        super(gameId,pricePerPlay,Name);
         
         this.givesReward = givesReward;
 
-        //validating GameID
-        if(!GameID.startsWith("C")){
-            throw new InvalidGameIdException("GameID invalid, does not start is a 'C'.");
+        //validating gameId
+        if(!gameId.startsWith("C")){
+            throw new InvalidGameIdException("gameId invalid, does not start is a 'C'.");
         }
-        else if(!(isAllAlphanumeric(GameID) && (GameID.length() != 10))){
-            throw new InvalidGameIdException("GameID invalid, does not contain exactly 10 alphanumeric characters.");
+        else if(!(isAllAlphanumeric(gameId) && (gameId.length() == 10))){
+            System.out.println(isAllAlphanumeric(gameId) +":"+ (gameId.length() != 10) + gameId.length());
+            throw new InvalidGameIdException("gameId invalid, does not contain exactly 10 alphanumeric characters.");
         }
     }
 
     private boolean isAllAlphanumeric(String str){
         // gets each character of a given String and
         for (int i = 0; i < str.length(); i++) {
-            System.out.println(str.charAt(i));
-            if (Character.isDigit(str.charAt(i))){
-                return false;
-            }
-            if(Character.isLetter(str.charAt(i))){
+            if (!(Character.isDigit(str.charAt(i)) || Character.isLetter(str.charAt(i)))){
                 return false;
             }
         }
         return true;
     }
-
     @Override
     protected int calculatePrice(boolean isPeakHour) {
         boolean canGetDiscounted = isPeakHour;
@@ -72,7 +68,7 @@ public class CabinetGame extends ArcadeGame{
             }
         }
         // to round down
-        return (int) Math.floor(this.PricePerPlay * totalDiscount);
+        return (int) Math.floor(this.pricePerPlay * totalDiscount);
     };
 
     public boolean isGivesReward() {
@@ -81,8 +77,8 @@ public class CabinetGame extends ArcadeGame{
 
     @Override
     public String toString(){
-        String toReturn = "This is a CabinetGame obj, GameID: %,PricePerPlay: %, Name: %,GiveReward: %";
-        return String.format(toReturn, this.GameID, this.PricePerPlay, this.Name, this.givesReward);
+        String toReturn = "This is a CabinetGame obj, gameId: %,pricePerPlay: %, Name: %,GiveReward: %";
+        return String.format(toReturn, this.gameId, this.pricePerPlay, this.name, this.givesReward);
     }
 
     public static void main(String[] args) throws InvalidGameIdException {

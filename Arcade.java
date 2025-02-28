@@ -4,18 +4,23 @@ import java.util.ArrayList;
 /*==================================================
 
 
-File             :  Arcade.java
+File                     :  Arcade.java
 
-date             :  28/2/2025
+date                     :  28/2/2025
 
-Author           :  Benedict Ward
+Author                   :  Benedict Ward
 
-Description      :  worth upto 25 marks
+Description              :  worth upto 25 marks, mainly linking up the types of arcade games
+                            to customers
 
-History          :  28/2/2025 v1.0 - 4:04 started, added the custom exception,
-                                     made the constructors + getCustomer
-                                     4:33 started testing getCustomer
+Possible Exceptions      :  InvalidCustomerException
+                            InvalidgameIdException
 
+
+History                  :  28/2/2025 v1.0 - 4:04 started, added the custom exception,
+                                             made the constructors + getCustomer
+                                             4:33 started testing getCustomer
+                                             5:51 back on the grind :3
 ==================================================*/
 
 
@@ -40,46 +45,128 @@ class InvalidGameIdException extends Exception{
 
 public class Arcade {
     private final String arcadeName;
-    private final double revenue;
-    private final ArrayList<ArcadeGame> AracdeGameCollection;
+    private double revenue;
+    private final ArrayList<ArcadeGame> ArcadeGameCollection;
     private final ArrayList<Customer> customerCollection;
 
     public Arcade(String arcadeName){
         this.arcadeName = arcadeName;
         this.customerCollection = new ArrayList<Customer>();
-        this.AracdeGameCollection = new ArrayList<ArcadeGame>();
+        this.ArcadeGameCollection = new ArrayList<ArcadeGame>();
         this.revenue = 0;
-        
     }
 
     public void addCustomer(Customer customer){
         this.customerCollection.add(customer);
     }
 
+    public void addArcadeGame(ArcadeGame arcadeGame){
+        this.ArcadeGameCollection.add(arcadeGame);
+    }
+
     public Customer getCustomer(String customerID) throws InvalidCustomerException{
         for (Customer elem : this.customerCollection) {
-            if (elem.getAccountID().equals(customerID)) {
+            if (elem.getAccountId().equals(customerID)) {
                 return elem;
             }
         }
         throw new InvalidCustomerException("No customer found with the ID of " + customerID);
     }
-    //public ArcadeGame getArcadeGame(String gameId){}
+    
+    public ArcadeGame getArcadeGame(String gameId) throws InvalidGameIdException{
+        for (ArcadeGame elem : this.ArcadeGameCollection) {
+            if (elem.getGameId().equals(gameId)) {
+                return elem;
+            }
+        }
+        throw new InvalidGameIdException("No game found with the ID of " + gameId);
+    }
 
+    public Customer findRichestCustomer(){
+        int highestBalance = -501;  // not setting it to 0 as Students can have -500
+        Customer richestCustomer = null;
+        for (Customer customer : this.customerCollection) {
+            if (customer.getAccountBalance() > highestBalance){
+                highestBalance = customer.getAccountBalance();
+                richestCustomer = customer;
+            }
+        }
+        return richestCustomer;
+    }
 
-    public void findRichestCustomer(){}
-    public void getMedianGamePrice(){}
-    public void countArcadeGames(){}
-    public void printCorporateJargon(){}
+    public void getMedianGamePrice(){
+        //TODO finish this one later when he are shown better data structures
+    }
+    
+    public int[] countArcadeGames(){
+        int totalArcadeGames = this.ArcadeGameCollection.size();
+
+        int totalActiveGames = 0;
+        for (ArcadeGame arcadegame : ArcadeGameCollection) {
+            if (arcadegame.toString().contains("ActiveGame")){
+                totalActiveGames += 1;
+            }
+        }
+
+        int totalVirtualgames = 0;
+        for (ArcadeGame arcadegame : ArcadeGameCollection) {
+            if (arcadegame.toString().contains("VirtualRealityGame")){
+                totalVirtualgames += 1;
+            }
+        }
+
+        //TODO maybe fix this so toReturn is set to 3 maybe it already is.
+        //int[] toReturn = new int[3];
+        int[] toReturn = {totalArcadeGames, totalActiveGames ,totalVirtualgames};
+        return toReturn;
+    }
+    
+    public static void printCorporateJargon(){
+        System.out.println("GamesCo does not take responsibility for any accidents or fits of rage that occur on the premises");
+    }
+
+    public String getArcadeName() {
+        return arcadeName;
+    }
+
+    public double getRevenue() {
+        return this.revenue;
+    }
+   
+    public boolean processTransaction(String customerId, String gameId, boolean peak) throws InvalidGameIdException, InvalidCustomerException, InsufficientBalanceException, AgeLimitException{
+        ArcadeGame arcadeGameObj;
+        Customer customer;
+        int amountCharged;
+        try {
+            arcadeGameObj = getArcadeGame(gameId);
+        } catch (InvalidGameIdException e) {
+            return false;
+        }
+        
+        try {
+            customer = getCustomer(customerId);
+        } catch (InvalidCustomerException e) {
+            return false;
+        }
+
+        try {
+            amountCharged = customer.chargeAcconut(arcadeGameObj, peak);
+        } catch (InsufficientBalanceException | AgeLimitException e) {
+            return false;
+        }
+
+        this.revenue -= amountCharged;
+        return true;
+    }
 
     public static void main(String[] args) throws InvalidCustomerException {
         
         // a test for the addCustomer along with getCustomer
-        Customer customer1 = new Customer("748A66", "Name1", 18, "STUDENT",500);
-        Customer customer2 = new Customer("1C6498", "Name2", 18, "STUDENT",500);
-        Customer customer3 = new Customer("305459", "Name3", 18, "STUDENT",500);
-        Customer customer4 = new Customer("203685", "Name4", 18, "STUDENT",500);
-        Arcade arcade = new Arcade("ARCADENAME");
+        Customer customer1 = new Customer("748A66", "name1", 18, "STUDENT",500);
+        Customer customer2 = new Customer("1C6498", "name2", 18, "STUDENT",500);
+        Customer customer3 = new Customer("305459", "name3", 18, "STUDENT",500);
+        Customer customer4 = new Customer("203685", "name4", 18, "STUDENT",500);
+        Arcade arcade = new Arcade("arcadeName");
         arcade.addCustomer(customer1);
         arcade.addCustomer(customer2);
         arcade.addCustomer(customer3);
