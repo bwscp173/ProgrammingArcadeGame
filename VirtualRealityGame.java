@@ -16,6 +16,7 @@ History          :  28/2/2025 v1.0 - added all the code then did the testing as 
                                      8:036pm fixed the constructor not asking for ageRequirement
                                      and just parsing in pricePerPlay twise
                                      9:11 fixed the isAllAphanumeic function and logic using that value
+                                     10:58pm fixed the toString method by removing the format function.
 
 ==================================================*/
 
@@ -97,15 +98,13 @@ public class VirtualRealityGame extends ActiveGame{
             else if(this.isHeadsetAndController()){
                 totalDiscount -= 0.05;
             }
-
         }
         return (int) Math.floor(this.pricePerPlay * totalDiscount);
     }
 
     @Override
     public String toString(){
-        String toReturn = "This is a VirtualRealityGame obj, gameId: %,pricePerPlay: %, Name: %,ControlType: %";
-        return String.format(toReturn, getGameId(), this.pricePerPlay, this.name, this.ControlType);
+        return "This is a VirtualRealityGame obj, gameId: "+getGameId()+",pricePerPlay: "+getPricePerPlay()+", Name: "+getName()+",ControlType: " +getControlType();
     }
 
     public static void main(String[] args) throws InvalidGameIdException {

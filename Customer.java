@@ -11,6 +11,7 @@ Description      :  worth upto 20 marks
 
 History          :  28/2/2025 v1.0 - finished coding at 3:30pm now doing testing
                                      3:50 found a 
+                                     10:59pm fixed the toString method by removing the format function.
 
 
 ==================================================*/
@@ -23,7 +24,6 @@ class InsufficientBalanceException extends Exception{
         super(message);
     }
 }
-
 
 
 
@@ -168,7 +168,7 @@ public class Customer {
         // this is a test for when given a valid arcadegame does charging the customer work correctly
         // expected result: it will loop 2 times like normal, on the 3rd it will throw a InsufficientBalanceException
         // ArcadeGame ag = new ActiveGame("AL2ETWHG0Q", 200, "Name",18);
-        //Customer customer = new Customer("accountID", "Name", 18, "NONE",500);
+        //Customer customer = new Customer("accountID", "Name", 18,"NONE",500);
 
         //for (int i = 0; i < 4; i++) {
         //    customer.chargeAcconut(ag, true);
@@ -181,13 +181,13 @@ public class Customer {
         
         // same testing but the Customers discount type is now Student
         // expected result: it will manage to loop all 4 times with the balance going negative
-        ArcadeGame ag = new ActiveGame("AL2ETWHG0Q", 200, "Name",18);
-        Customer customer = new Customer("accountID", "Name", 18, "STUDENT",500);
+        //ArcadeGame ag = new ActiveGame("AL2ETWHG0Q", 200, "Name",18);
+        //Customer customer = new Customer("accountID", "Name", 18,"STUDENT",500);
 
-        for (int i = 0; i < 4; i++) {
-            customer.chargeAcconut(ag, true);
-            System.out.println(i +" : "+ customer.toString());
-        }
+        //for (int i = 0; i < 4; i++) {
+        //    customer.chargeAcconut(ag, true);
+        //    System.out.println(i +" : "+ customer.toString());
+        //}
         // given result: i was correct, looped 4 times with balance going from 500->310->120->-70->-260
         // other notes: swapped out the 4 for a 7 and i only reached to 4 before the balance hit -450
         // meaning it couldnt go lower and error was thrown "InsufficientBalanceException: the price is,190. and you only have, -450"

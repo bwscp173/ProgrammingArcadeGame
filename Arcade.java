@@ -51,8 +51,8 @@ public class Arcade {
 
     public Arcade(String arcadeName){
         this.arcadeName = arcadeName;
-        this.customerCollection = new ArrayList<Customer>();
-        this.ArcadeGameCollection = new ArrayList<ArcadeGame>();
+        this.customerCollection = new ArrayList<>();
+        this.ArcadeGameCollection = new ArrayList<>();
         this.revenue = 0;
     }
 
@@ -132,8 +132,8 @@ public class Arcade {
     public double getRevenue() {
         return this.revenue;
     }
-   
-    public boolean processTransaction(String customerId, String gameId, boolean peak) throws InvalidGameIdException, InvalidCustomerException, InsufficientBalanceException, AgeLimitException{
+    
+    public boolean processTransaction(String customerId, String gameId, boolean peak){
         ArcadeGame arcadeGameObj;
         Customer customer;
         int amountCharged;
@@ -156,7 +156,7 @@ public class Arcade {
         }
 
         this.revenue -= amountCharged;
-        return true;
+    return true;
     }
 
     public static void main(String[] args) throws InvalidCustomerException {

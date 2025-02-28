@@ -13,6 +13,7 @@ History          :  28/2/2025 v1.0 - added code
                                      4:17pm fixed edge case where the characters 
                                      where not checked only the length was
                                      9:11pm fixed the isAllAphanumeic function and logic using that value
+                                     10:58pm fixed the toString method by removing the format function.
 
 ==================================================*/
 
@@ -71,14 +72,13 @@ public class CabinetGame extends ArcadeGame{
         return (int) Math.floor(this.pricePerPlay * totalDiscount);
     };
 
-    public boolean isGivesReward() {
+    public boolean getGivesReward() {
         return this.givesReward;
     }
 
     @Override
     public String toString(){
-        String toReturn = "This is a CabinetGame obj, gameId: %,pricePerPlay: %, Name: %,GiveReward: %";
-        return String.format(toReturn, this.gameId, this.pricePerPlay, this.name, this.givesReward);
+        return "This is a CabinetGame obj, gameId: "+getGameId()+",pricePerPlay: "+getPricePerPlay()+", Name: "+getName()+",GiveReward: "+getGivesReward();
     }
 
     public static void main(String[] args) throws InvalidGameIdException {
