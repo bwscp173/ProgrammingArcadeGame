@@ -1,6 +1,3 @@
-
-import java.util.ArrayList;
-
 /*==================================================
 
 
@@ -21,9 +18,11 @@ History                  :  28/2/2025 v1.0 - 4:04 started, added the custom exce
                                              made the constructors + getCustomer
                                              4:33 started testing getCustomer
                                              5:51 back on the grind :3
+                                             11:34pm adding functionality for getting the median
 ==================================================*/
 
-
+import java.util.ArrayList;
+import java.util.Arrays;
 
 class InvalidCustomerException extends Exception{
     public InvalidCustomerException(){}
@@ -94,8 +93,26 @@ public class Arcade {
         return richestCustomer;
     }
 
-    public void getMedianGamePrice(){
-        //TODO finish this one later when he are shown better data structures
+    public int getMedianGamePrice(){
+        //TODO comeback to this one later when we are shown better data structures
+        int[] allPrices = new int[this.ArcadeGameCollection.size()];
+        int index = 0;
+        for (ArcadeGame arcadeGame : this.ArcadeGameCollection) {
+            allPrices[index] = (arcadeGame.getPricePerPlay());
+            index += 1;
+        }
+
+        Arrays.sort(allPrices);
+
+        if ((double) (this.ArcadeGameCollection.size() / 2) != (int) (this.ArcadeGameCollection.size() / 2)) {
+            System.out.println("they aint the same");
+            // TODO add functionality for when it is this edge case
+        }
+        else{
+            return allPrices[this.ArcadeGameCollection.size() / 2];
+            
+        }
+        return -1;
     }
     
     public int[] countArcadeGames(){

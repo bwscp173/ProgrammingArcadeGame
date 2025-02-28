@@ -104,7 +104,6 @@ public class Customer {
         }
 
         int fullPrice = arcadeGameObj.calculatePrice(peakTime);
-        System.out.println(fullPrice+" "+discountFactor);
 
         int price = (int) (Math.floor(fullPrice * discountFactor));
     

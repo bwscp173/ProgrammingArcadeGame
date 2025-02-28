@@ -39,7 +39,6 @@ public class CabinetGame extends ArcadeGame{
             throw new InvalidGameIdException("gameId invalid, does not start is a 'C'.");
         }
         else if(!(isAllAlphanumeric(gameId) && (gameId.length() == 10))){
-            System.out.println(isAllAlphanumeric(gameId) +":"+ (gameId.length() != 10) + gameId.length());
             throw new InvalidGameIdException("gameId invalid, does not contain exactly 10 alphanumeric characters.");
         }
     }

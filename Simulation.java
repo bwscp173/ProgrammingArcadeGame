@@ -18,6 +18,7 @@ History                  :  28/2/2025 v1.0 - made the static helper function rea
                                              initialiseArcade now reads from both given files
                                              11:09pm initialiseArcade now doesnt throw any errors
                                              and when prompted gave mantis toboggan as the richest customer
+                                             11:18pm moved checking the gameType to a switch case statement
 ==================================================*/
 
 
@@ -34,12 +35,20 @@ public class Simulation {
         File arcadeGamesFile = new File("games.txt");
         File transactionsFile = new File("transactions.txt"); 
         Arcade arcade = initialiseArcade("arcadeName", arcadeGamesFile, customersFile);
+        
+        
         simulateFun(arcade, transactionsFile);
 
-        arcade.printCorporateJargon();
-        System.out.println(arcade.countArcadeGames());
+
+        System.out.println("==================================================");
+        Arcade.printCorporateJargon();
+        int[] stats = arcade.countArcadeGames();
+        System.out.println("total number of cabinetgames in this arcade: " + stats[0]);
+        System.out.println("number of active games in this arcade (not including vr):" + stats[1]);
+        System.out.println("number of virtual reality games in this arcade:" + stats[2]);
         System.out.println(arcade.findRichestCustomer());
-        //System.out.println(arcade.getMedianGamePrice());
+        System.out.println("the median price is :" + arcade.getMedianGamePrice());
+        System.out.println("==================================================");
         
     }
 
@@ -78,35 +87,41 @@ public class Simulation {
             String gameName = lineData[1];
             String gameType = lineData[2];
             int pricePerPlay = Integer.parseInt(lineData[3]);
+            int ageRequirement;
 
-            if (gameType.equals("virtualReality")){
-                int ageRequirement = Integer.parseInt(lineData[4]);
-                String trackingType = lineData[5];
-                try {
-                    arcadeGameToAdd = new VirtualRealityGame(gameId, pricePerPlay, gameName, ageRequirement, trackingType);
-                } catch (InvalidGameIdException e) {
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Warning Incorrect GameId given skipping1!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    continue;
+            switch (gameType) {
+                case "virtualReality" -> {
+                    ageRequirement = Integer.parseInt(lineData[4]);
+                    String trackingType = lineData[5];
+                    try {
+                        arcadeGameToAdd = new VirtualRealityGame(gameId, pricePerPlay, gameName, ageRequirement, trackingType);
+                    } catch (InvalidGameIdException e) {
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Warning Incorrect GameId given skipping1!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        continue;
+                    }
+                }
+
+                case "cabinet" -> {
+                    boolean givesReward = lineData[4].equals("yes");
+                    try {
+                        arcadeGameToAdd = new CabinetGame(gameId, pricePerPlay, gameName, givesReward);
+                    } catch (InvalidGameIdException e) {
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Warning Incorrect GameId given skipping2!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        continue;
+                    }
+                }
+
+                case "active" -> {
+                    ageRequirement = Integer.parseInt(lineData[4]);
+                    try {
+                        arcadeGameToAdd = new ActiveGame(gameId, pricePerPlay, gameId, ageRequirement);
+                    } catch (InvalidGameIdException e) {
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Warning Incorrect GameId given skipping3!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        continue;
+                    }
                 }
             }
-            else if(gameType.equals("cabinet")){
-                boolean givesReward = lineData[4].equals("yes");
-                try {
-                    arcadeGameToAdd = new CabinetGame(gameId, pricePerPlay, gameName, givesReward);
-                } catch (InvalidGameIdException e) {
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Warning Incorrect GameId given skipping2!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    continue;
-                }
-            }
-            else if(gameType.equals("active")){
-                int ageRequirement = Integer.parseInt(lineData[4]);
-                try {
-                    arcadeGameToAdd = new ActiveGame(gameId, pricePerPlay, gameId, ageRequirement);
-                } catch (InvalidGameIdException e) {
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Warning Incorrect GameId given skipping3!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    continue;
-                }
-            }
+            
             newArcadeObj.addArcadeGame(arcadeGameToAdd);
         }
 
@@ -121,8 +136,6 @@ public class Simulation {
             String discountType = "NONE";
             Customer customerToAdd;
             if (lineData.length == 5){
-                discountType = lineData[4];
-                discountType = lineData[4];
                 discountType = lineData[4];
                 customerToAdd = new Customer(accountId, name, age, discountType,initalBalance);
             }
@@ -143,20 +156,16 @@ public class Simulation {
             String command = lineData[0];
             String customerId = lineData[1];
             switch (command) {
-                case "PLAY":
+                case "PLAY" -> {
                     String gameId = lineData[2];
                     boolean peakTime = lineData[3].equals("PEAK");
 
                     arcade.processTransaction(customerId, gameId, peakTime);
-                    break;
-
-                case "NEW_CUSTOMER":
-                    System.out.println("adding new customer" + lineData[2]);
+                }
+                case "NEW_CUSTOMER" -> {
                     String name = lineData[2];
-
                     int age;
                     String discountType;
-                
                     int initalBalance;
 
                     if (lineData.length == 5){
@@ -173,19 +182,18 @@ public class Simulation {
                     Customer newCustomer = new Customer(customerId, name, age, discountType, initalBalance);
                 
                     arcade.addCustomer(newCustomer);
-                    break;
-
-                
-                case "ADD_FUNDS":
+                }
+                case "ADD_FUNDS" -> {
                     int moneyToAdd = Integer.parseInt(lineData[2]);
-                
+                    
                     try {
                         arcade.getCustomer(customerId).AddFunds(moneyToAdd);
                     } catch (InvalidCustomerException ex) {
-                        System.out.println("CAUGHT INVALID CUSTOMER EXCEPTION ADD_FUNDS");
+                        System.out.println("caught invalid customerId : " + customerId);
+
+                        System.out.println("could not add £"+(double)moneyToAdd /100+" as we could not find that Id.");
                     }
-                
-                    break;
+                }
 
             }
         }

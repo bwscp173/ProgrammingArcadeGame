@@ -56,7 +56,6 @@ public class VirtualRealityGame extends ActiveGame{
         }
         //TODO fix potental edge case where  the 10 characters are not all alphanumeric characters
         else if(!(isAllAlphanumeric(gameId) && (gameId.length() == 10))){
-            System.out.println(isAllAlphanumeric(gameId) +":"+ (gameId.length() != 10) + gameId.length());
             throw new InvalidGameIdException("gameId invalid, does not contain exactly 10 alphanumeric characters.");
         }
     }
