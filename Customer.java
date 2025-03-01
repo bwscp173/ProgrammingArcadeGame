@@ -1,15 +1,19 @@
 /*==================================================
 
 
-File             :  Customer.java
+File                     :  Customer.java
 
-date             :  28/2/2025
+date                     :  28/2/2025
 
-Author           :  Benedict Ward
+Author                   :  Benedict Ward
 
-Description      :  worth upto 20 marks
+Description              :  worth upto 20 marks
 
-History          :  28/2/2025 v1.0 - finished coding at 3:30pm now doing testing
+Possible Exceptions      :  InsufficientBalanceException from chargeAcconut
+                            AgeLimitException from chargeAccount
+
+
+History                  :  28/2/2025 v1.0 - finished coding at 3:30pm now doing testing
                                      3:50 found a 
                                      10:59pm fixed the toString method by removing the format function.
 
@@ -116,7 +120,7 @@ public class Customer {
                 ActiveGame activeGameObj = (ActiveGame) arcadeGameObj;
                 int ageRequirement = activeGameObj.getAgeRequirement();
 
-                if (!(ageRequirement <= this.Age)){
+                if (ageRequirement > this.Age){
                     throw new AgeLimitException("you must be at least " + ageRequirement + ", to play this game, you are only " + this.Age);
                 }
             }
@@ -193,19 +197,3 @@ public class Customer {
     }
 
 }
-
-// private EnumControlTypes ControlType;
-// private enum EnumControlTypes {  HEADSETONLY,
-//                             FULLBODYTRACKING,
-//                             HEADSETANDCONTROLLER};
-
-
-// public VirtualRealityGame(String gameId, int pricePerPlay, String Name, String ControlType) throws InvalidGameIdException{
-//     super(gameId, pricePerPlay, Name, pricePerPlay);
-
-//     switch (ControlType) {
-//         // TODO check if this is allowed on the pass server
-//         case "headsetOnly" -> this.ControlType = EnumControlTypes.HEADSETONLY;
-//         case "fullBodyTracking" -> this.ControlType = EnumControlTypes.FULLBODYTRACKING;
-//         case "headsetAndController" -> this.ControlType = EnumControlTypes.HEADSETANDCONTROLLER;
-//     }

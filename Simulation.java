@@ -11,7 +11,6 @@ Description              :  worth upto 25 marks, mainly linking up the types of 
                             to customers
 
 Possible Exceptions      :  FileNotFoundException
-                            InvalidGameIdException  TODO FIX THESE
 
 
 History                  :  28/2/2025 v1.0 - made the static helper function readFromFile
@@ -19,6 +18,7 @@ History                  :  28/2/2025 v1.0 - made the static helper function rea
                                              11:09pm initialiseArcade now doesnt throw any errors
                                              and when prompted gave mantis toboggan as the richest customer
                                              11:18pm moved checking the gameType to a switch case statement
+                            1/3/2025 v1.01 - fully account for possible Exception
 ==================================================*/
 
 
@@ -29,12 +29,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Simulation {
-    public static void main(String[] args) throws FileNotFoundException, InvalidGameIdException{
+    public static void main(String[] args) throws FileNotFoundException{
         
         File customersFile = new File("customers.txt");
         File arcadeGamesFile = new File("games.txt");
         File transactionsFile = new File("transactions.txt"); 
+
+
         Arcade arcade = initialiseArcade("arcadeName", arcadeGamesFile, customersFile);
+
         
         
         simulateFun(arcade, transactionsFile);
@@ -42,21 +45,24 @@ public class Simulation {
 
         System.out.println("==================================================");
         Arcade.printCorporateJargon();
+        
         int[] stats = arcade.countArcadeGames();
         System.out.println("total number of cabinetgames in this arcade: " + stats[0]);
         System.out.println("number of active games in this arcade (not including vr):" + stats[1]);
         System.out.println("number of virtual reality games in this arcade:" + stats[2]);
+        
         System.out.println(arcade.findRichestCustomer());
+        
         System.out.println("the median price is :" + arcade.getMedianGamePrice());
         System.out.println("==================================================");
         
     }
 
-    public static ArrayList<String> readFromFile(File fileName){
+    public static ArrayList<String> readFromFile(File fileObj){
         ArrayList<String> contents = new ArrayList<>();
         // code copied and then modified from https://www.w3schools.com/java/java_files_read.asp
         try {
-            try(Scanner myReader = new Scanner(fileName)){
+            try(Scanner myReader = new Scanner(fileObj)){
                 while (myReader.hasNextLine()) {
                     String current_line = myReader.nextLine();
                     contents.add(current_line);  // added this line
@@ -70,10 +76,8 @@ public class Simulation {
         return contents;
     }
 
-    public static Arcade initialiseArcade(String arcadeName, File gamesFile, File customerFile) throws FileNotFoundException, InvalidGameIdException{
+    public static Arcade initialiseArcade(String arcadeName, File gamesFile, File customerFile) throws FileNotFoundException{
         Arcade newArcadeObj = new Arcade(arcadeName);
-        // file reading code originally from https://www.tutorialspoint.com/how-to-read-contents-of-a-file-using-scanner-class
-
         
         ArrayList<String> gamesFileContens = readFromFile(gamesFile);
         // for dealing with a
@@ -81,7 +85,7 @@ public class Simulation {
             ArcadeGame arcadeGameToAdd = null;
             // each line goes Id, name,typeofgame, cost, age restriction
             // if vr then there is a extra tracking type
-            // if cabinet then there is no age restriction
+            // if cabinet then there is no age restriction but a yes or no for giving out rewards.
             String[] lineData = line.split("@");
             String gameId = lineData[0];
             String gameName = lineData[1];
@@ -89,6 +93,7 @@ public class Simulation {
             int pricePerPlay = Integer.parseInt(lineData[3]);
             int ageRequirement;
 
+            // creating the virtualRealityGame/CabinetGame/ActiveGame objects to the expected ArcadeGame object, arcadeGameToAdd.
             switch (gameType) {
                 case "virtualReality" -> {
                     ageRequirement = Integer.parseInt(lineData[4]);

@@ -15,6 +15,10 @@ History          :  28/2/2025 v1.0 - added code
                                      9:11pm fixed the isAllAphanumeic function and logic using that value
                                      10:58pm fixed the toString method by removing the format function.
 
+                    3/1/2025 v1.01 - moved the helper function isAllAlphanumeric
+                                     to ArcadeGame where it get inherritted from
+                                     fixed calculatePrice, missing ! for boolean logic and wrongful cast to int not double.
+
 ==================================================*/
 
 
@@ -43,24 +47,15 @@ public class CabinetGame extends ArcadeGame{
         }
     }
 
-    private boolean isAllAlphanumeric(String str){
-        // gets each character of a given String and
-        for (int i = 0; i < str.length(); i++) {
-            if (!(Character.isDigit(str.charAt(i)) || Character.isLetter(str.charAt(i)))){
-                return false;
-            }
-        }
-        return true;
-    }
     @Override
     protected int calculatePrice(boolean isPeakHour) {
-        boolean canGetDiscounted = isPeakHour;
-        int totalDiscount = 1;
+        boolean canGetDiscounted = !isPeakHour;
+        double totalDiscount = 1;
         if (canGetDiscounted){
             
             // 20% discount if the game gives out rewards
             // else 50%
-            if (this.givesReward){
+            if (getGivesReward()){
                 totalDiscount -= 0.20;
             }
             else{
@@ -68,7 +63,8 @@ public class CabinetGame extends ArcadeGame{
             }
         }
         // to round down
-        return (int) Math.floor(this.pricePerPlay * totalDiscount);
+        System.out.println(getPricePerPlay() + ":" + totalDiscount);
+        return (int) Math.floor(getPricePerPlay() * totalDiscount);
     };
 
     public boolean getGivesReward() {
@@ -80,9 +76,57 @@ public class CabinetGame extends ArcadeGame{
         return "This is a CabinetGame obj, gameId: "+getGameId()+",pricePerPlay: "+getPricePerPlay()+", Name: "+getName()+",GiveReward: "+getGivesReward();
     }
 
-    public static void main(String[] args) throws InvalidGameIdException {
-        //TODO testing here
-        //CabinetGame cabinetGame = new CabinetGame("ID",200,"GAMENAME", true);
+    public static void main(String[] args){
+        // expected result: pass, as this is all typical data
+        // CabinetGame gameIdTest1 = null;
+        // try{
+        //     gameIdTest1 = new CabinetGame("CBGCR27FQM",200,"GAMENAME", true);
+        // }catch(InvalidGameIdException e){
+        //     System.out.println(e);
+        // }
+        // System.out.println(gameIdTest1.toString());
+        // actual result: i was correct, toString executed without error.
+
+
+        // expected result: fail as gameId does not start with C
+        // CabinetGame gameIdTest2;
+        // try{
+        //     gameIdTest2 = new CabinetGame("BBGCR27FQM",200,"GAMENAME", true);
+        //     System.out.println(gameIdTest2.toString());
+        // }catch(InvalidGameIdException e){
+        //     System.out.println(e);
+        // }
+        // actual result: i was correct, "gameId invalid, does not start is a 'C'."
+        
+        // epected result: fail as gameId is too long.
+        // CabinetGame gameIdTest3;
+        // try{
+        //     gameIdTest3 = new CabinetGame("CBGCR27FQMMMM",200,"GAMENAME", true);
+        //     System.out.println(gameIdTest3.toString());
+        // }catch(InvalidGameIdException e){
+        //     System.out.println(e);
+        // }
+        // actual result: i was correct, "gameId invalid, does not contain exactly 10 alphanumeric characters."
+
+
+        // CabinetGame calculatePriceTest1 = null;
+        // CabinetGame calculatePriceTest2 = null;
+        // try{
+        //     calculatePriceTest1 = new CabinetGame("CBGCR27FQM",200,"GAMENAME", true);
+        //     calculatePriceTest2 = new CabinetGame("CBGCR27FQM",200,"GAMENAME", false);
+        // }catch(InvalidGameIdException e){
+        //     System.out.println(e);
+        // }
+        // boolean isPeakHour = true;
+        // System.out.println("expected price of  200, actual price of " + calculatePriceTest1.calculatePrice(isPeakHour));  // 200
+        // System.out.println("expected price of  160, actual price of " + calculatePriceTest1.calculatePrice(!isPeakHour));  // 160
+
+        // System.out.println("expected price of  200, actual price of " + calculatePriceTest2.calculatePrice(isPeakHour));  // 200
+        // System.out.println("expected price of  100, actual price of " + calculatePriceTest2.calculatePrice(!isPeakHour));  //100
+        // actual output was, 0,200 and 0,200
+        // fix: missing ! when setting canGetDiscounted and was casting totalDiscount to int not double
+        // causing any discount to set totalDiscount to 0
+        // after re-running i get the output 200,160 and 200,100 as expected.
     }
 
 }

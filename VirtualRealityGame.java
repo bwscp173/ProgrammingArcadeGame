@@ -18,6 +18,7 @@ History          :  28/2/2025 v1.0 - added all the code then did the testing as 
                                      9:11 fixed the isAllAphanumeic function and logic using that value
                                      10:58pm fixed the toString method by removing the format function.
 
+                    1/3/2025 v1.0 - removed isAllAlphanumeric as it gets inherited from ArcadeGame
 ==================================================*/
 
 
@@ -60,16 +61,6 @@ public class VirtualRealityGame extends ActiveGame{
         }
     }
 
-    private boolean isAllAlphanumeric(String str){
-        // gets each character of a given String and
-        for (int i = 0; i < str.length(); i++) {
-            if (!(Character.isDigit(str.charAt(i)) || Character.isLetter(str.charAt(i)))){
-                return false;
-            }
-        }
-        return true;
-    }
-
     public boolean isHeadsetOnly(){
         return this.ControlType == EnumControlTypes.HEADSETONLY;
     }
@@ -88,17 +79,17 @@ public class VirtualRealityGame extends ActiveGame{
 
     @Override
     protected int calculatePrice(boolean isPeakHour) {
-        boolean canGetDiscounted = isPeakHour;
-        int totalDiscount = 1;
+        boolean canGetDiscounted = !isPeakHour;
+        double totalDiscount = 1;
         if (canGetDiscounted){
-            if(this.isHeadsetOnly()){
+            if(isHeadsetOnly()){
                 totalDiscount -= 0.10;
             }
-            else if(this.isHeadsetAndController()){
+            else if(isHeadsetAndController()){
                 totalDiscount -= 0.05;
             }
         }
-        return (int) Math.floor(this.pricePerPlay * totalDiscount);
+        return (int) Math.floor(getPricePerPlay() * totalDiscount);
     }
 
     @Override
@@ -106,7 +97,7 @@ public class VirtualRealityGame extends ActiveGame{
         return "This is a VirtualRealityGame obj, gameId: "+getGameId()+",pricePerPlay: "+getPricePerPlay()+", Name: "+getName()+",ControlType: " +getControlType();
     }
 
-    public static void main(String[] args) throws InvalidGameIdException {
+    public static void main(String[] args){
         //Testing took place on 28/02/25 around 12-1:30
         //String gameId, int pricePerPlay, String Name, String ControlType
 
@@ -138,6 +129,34 @@ public class VirtualRealityGame extends ActiveGame{
         //VirtualRealityGame ControlTypeTest2 = new VirtualRealityGame("AVI1USPBNG", 0, "Virtual UEA Tour", "hEaDsEtOnly");
         //System.out.println(ControlTypeTest2.getControlType());
         // given result: i was correct, output is null
+
+
+        //testing calculatePrice when given a valid VirtualRealityGame object
+        // VirtualRealityGame calculatePriceTest1 = null;
+        // VirtualRealityGame calculatePriceTest2 = null;
+        // VirtualRealityGame calculatePriceTest3 = null;
+        // try {
+        //     calculatePriceTest1 = new VirtualRealityGame("AVI1USPBNG", 100, "Virtual UEA Tour",0, "headsetOnly");
+        //     calculatePriceTest2 = new VirtualRealityGame("AVI1USPBNG", 100, "Virtual UEA Tour",0, "fullBodyTracking");
+        //     calculatePriceTest3 = new VirtualRealityGame("AVI1USPBNG", 100, "Virtual UEA Tour",0, "headsetAndController");
+        // } catch (InvalidGameIdException e) {
+        //     System.out.println(e);
+        // }
+
+        // boolean isPeakHour = true;
+        // System.out.println("expected price of  100, actual price of " + calculatePriceTest1.calculatePrice(isPeakHour));  //100
+        // System.out.println("expected price of  90, actual price of " + calculatePriceTest1.calculatePrice(!isPeakHour));  // 90
+
+        // System.out.println("expected price of  100, actual price of " + calculatePriceTest2.calculatePrice(isPeakHour));  // 100
+        // System.out.println("expected price of  100, actual price of " + calculatePriceTest2.calculatePrice(!isPeakHour));  // 100
+
+        // System.out.println("expected price of  100, actual price of " + calculatePriceTest3.calculatePrice(isPeakHour));  // 100
+        // System.out.println("expected price of  95, actual price of " + calculatePriceTest3.calculatePrice(!isPeakHour));  // 95
+        //fix: missing ! when setting canGetDiscounted + wrongful cast to int for totalDiscount. now casts to double
+        // after these corrections i get the correct output of 100,90 and 100,100 and 100,95
+
+
+
 
         //error stats:
         // gameIdTest       expected pass rate : actual pass rate    (75%)
