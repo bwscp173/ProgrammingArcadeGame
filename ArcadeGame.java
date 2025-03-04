@@ -25,6 +25,7 @@ History                  :  28/2/2025 v1.0 - added the constructor and calculate
 
 
 public abstract class ArcadeGame{
+    //TODO look into making these final and removing the mutator methods?
     protected String gameId;  // also known as serial number
     protected int pricePerPlay;
     protected String name;

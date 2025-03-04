@@ -19,6 +19,7 @@ History                  :  28/2/2025 v1.0 - 4:04 started, added the custom exce
                                              4:33 started testing getCustomer
                                              5:51 back on the grind :3
                                              11:34pm adding functionality for getting the median
+                            1/3/2025 v1.01 - created private acessor method getMedianGamePrice
 ==================================================*/
 
 import java.util.ArrayList;
@@ -44,9 +45,9 @@ class InvalidGameIdException extends Exception{
 
 public class Arcade {
     private final String arcadeName;
-    private double revenue;
     private final ArrayList<ArcadeGame> ArcadeGameCollection;
     private final ArrayList<Customer> customerCollection;
+    private double revenue;  // cant be final as revenue will change 
 
     public Arcade(String arcadeName){
         this.arcadeName = arcadeName;
@@ -93,30 +94,34 @@ public class Arcade {
         return richestCustomer;
     }
 
+    private ArrayList<ArcadeGame> getArcadeGameCollection(){
+        return this.ArcadeGameCollection;
+    }
+
     public int getMedianGamePrice(){
         //TODO comeback to this one later when we are shown better data structures
-        int[] allPrices = new int[this.ArcadeGameCollection.size()];
+        int[] allPrices = new int[getArcadeGameCollection().size()];
         int index = 0;
-        for (ArcadeGame arcadeGame : this.ArcadeGameCollection) {
+        for (ArcadeGame arcadeGame : getArcadeGameCollection()) {
             allPrices[index] = (arcadeGame.getPricePerPlay());
             index += 1;
         }
 
         Arrays.sort(allPrices);
 
-        if ((double) (this.ArcadeGameCollection.size() / 2) != (int) (this.ArcadeGameCollection.size() / 2)) {
+        if ((double) (getArcadeGameCollection().size() / 2) != (int) (getArcadeGameCollection().size() / 2)) {
             System.out.println("they aint the same");
             // TODO add functionality for when it is this edge case
         }
         else{
-            return allPrices[this.ArcadeGameCollection.size() / 2];
+            return allPrices[getArcadeGameCollection().size() / 2];
             
         }
         return -1;
     }
     
     public int[] countArcadeGames(){
-        int totalArcadeGames = this.ArcadeGameCollection.size();
+        int totalArcadeGames = getArcadeGameCollection().size();
 
         int totalActiveGames = 0;
         for (ArcadeGame arcadegame : ArcadeGameCollection) {
@@ -176,8 +181,8 @@ public class Arcade {
     return true;
     }
 
-    public static void main(String[] args) throws InvalidCustomerException {
-        
+    public static void main(String[] args) throws InvalidGameIdException{
+        //TODO more testing??
         // a test for the addCustomer along with getCustomer
         Customer customer1 = new Customer("748A66", "name1", 18, "STUDENT",500);
         Customer customer2 = new Customer("1C6498", "name2", 18, "STUDENT",500);
@@ -188,7 +193,15 @@ public class Arcade {
         arcade.addCustomer(customer2);
         arcade.addCustomer(customer3);
         arcade.addCustomer(customer4);
-        System.out.println(arcade.getCustomer("203685"));
-        System.out.println(arcade.getCustomer("000000"));  // this line correctly throws an error
+        try {
+            System.out.println(arcade.getCustomer("203685"));
+            System.out.println(arcade.getCustomer("000000"));  // this line correctly throws an error
+        } catch (InvalidCustomerException e) {
+            System.out.println("caught an error: "+e);
+        }
+
+        ArcadeGame activeGame = new ActiveGame("AHW0HK1F03",80,"Foosball",3);
+        
+        arcade.addArcadeGame(activeGame);
     }
 }

@@ -17,6 +17,8 @@ History                  :  28/2/2025 v1.0 - finished coding at 3:30pm now doing
                                      3:50 found a 
                                      10:59pm fixed the toString method by removing the format function.
 
+                            1/3/2025 v1.0 - chargeAcconut now uses getAccountBalance() instead
+                                            of this.accountBalance, same with age.
 
 ==================================================*/
 
@@ -111,7 +113,7 @@ public class Customer {
 
         int price = (int) (Math.floor(fullPrice * discountFactor));
     
-        if (0 < (this.accountBalance - price) || (-500 < (this.accountBalance - price) && canGoNegative)) {
+        if (0 < (getAccountBalance() - price) || (-500 < (getAccountBalance() - price) && canGoNegative)) {
             // the user has enough funds to pay
 
             // now checking if the arcadegameObj is either activegame,cabinetgame or virtualrealitygame then type casting it to a new variable
@@ -120,7 +122,7 @@ public class Customer {
                 ActiveGame activeGameObj = (ActiveGame) arcadeGameObj;
                 int ageRequirement = activeGameObj.getAgeRequirement();
 
-                if (ageRequirement > this.Age){
+                if (ageRequirement > getAge()){
                     throw new AgeLimitException("you must be at least " + ageRequirement + ", to play this game, you are only " + this.Age);
                 }
             }
@@ -129,7 +131,7 @@ public class Customer {
             return price;  // returns an int equal to the amount the customer was charged
         }
         else{
-            throw new InsufficientBalanceException("the price is," + price + ". and you only have, " + this.accountBalance);
+            throw new InsufficientBalanceException("the price is," + price + ". and you only have, " + getAccountBalance());
         }
     }
 
@@ -168,6 +170,7 @@ public class Customer {
 
     public static void main(String[] args) throws InvalidGameIdException,InsufficientBalanceException, AgeLimitException {
 
+        //TODO more testing?????
         // this is a test for when given a valid arcadegame does charging the customer work correctly
         // expected result: it will loop 2 times like normal, on the 3rd it will throw a InsufficientBalanceException
         // ArcadeGame ag = new ActiveGame("AL2ETWHG0Q", 200, "Name",18);
