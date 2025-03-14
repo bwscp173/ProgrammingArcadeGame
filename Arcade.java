@@ -20,6 +20,14 @@ History                  :  28/2/2025 v1.0 - 4:04 started, added the custom exce
                                              5:51 back on the grind :3
                                              11:34pm adding functionality for getting the median
                             1/3/2025 v1.01 - created private acessor method getMedianGamePrice
+
+                            13/3/2025 v1.02 - fixed getMedianPrice()
+                                              the error was casting to a double after dividing the int
+                                              when it should be casting to a double then dividing by 2.
+                                              
+                                              fixed countArcadeGames()
+                                              now using .getClass().getSimpleName().equals instead of checking
+                                              the toString output
 ==================================================*/
 
 import java.util.ArrayList;
@@ -109,36 +117,34 @@ public class Arcade {
 
         Arrays.sort(allPrices);
 
-        if ((double) (getArcadeGameCollection().size() / 2) != (int) (getArcadeGameCollection().size() / 2)) {
-            System.out.println("they aint the same");
-            // TODO add functionality for when it is this edge case
+        if (((double) (getArcadeGameCollection().size())) / 2 != getArcadeGameCollection().size() / 2) {
+            // when there is an even amount of ArcadeGame machines
+            return (allPrices[getArcadeGameCollection().size() / 2] + allPrices[(getArcadeGameCollection().size() + 1) / 2]) / 2;
         }
         else{
+            // when there is an odd amount of ArcadeGame machines
             return allPrices[getArcadeGameCollection().size() / 2];
             
         }
-        return -1;
     }
     
     public int[] countArcadeGames(){
         int totalArcadeGames = getArcadeGameCollection().size();
 
         int totalActiveGames = 0;
-        for (ArcadeGame arcadegame : ArcadeGameCollection) {
-            if (arcadegame.toString().contains("ActiveGame")){
+        for (ArcadeGame arcadegame : this.ArcadeGameCollection) {
+            if (arcadegame.getClass().getSimpleName().equals("ActiveGame")){
                 totalActiveGames += 1;
             }
         }
 
         int totalVirtualgames = 0;
-        for (ArcadeGame arcadegame : ArcadeGameCollection) {
-            if (arcadegame.toString().contains("VirtualRealityGame")){
+        for (ArcadeGame arcadegame : this.ArcadeGameCollection) {
+            if (arcadegame.getClass().getSimpleName().equals("VirtualRealityGame")){
                 totalVirtualgames += 1;
             }
         }
 
-        //TODO maybe fix this so toReturn is set to 3 maybe it already is.
-        //int[] toReturn = new int[3];
         int[] toReturn = {totalArcadeGames, totalActiveGames ,totalVirtualgames};
         return toReturn;
     }
@@ -148,7 +154,7 @@ public class Arcade {
     }
 
     public String getArcadeName() {
-        return arcadeName;
+        return this.arcadeName;
     }
 
     public double getRevenue() {
@@ -172,7 +178,7 @@ public class Arcade {
         }
 
         try {
-            amountCharged = customer.chargeAcconut(arcadeGameObj, peak);
+            amountCharged = customer.chargeAccount(arcadeGameObj, peak);
         } catch (InsufficientBalanceException | AgeLimitException e) {
             return false;
         }
@@ -182,7 +188,6 @@ public class Arcade {
     }
 
     public static void main(String[] args) throws InvalidGameIdException{
-        //TODO more testing??
         // a test for the addCustomer along with getCustomer
         Customer customer1 = new Customer("748A66", "name1", 18, "STUDENT",500);
         Customer customer2 = new Customer("1C6498", "name2", 18, "STUDENT",500);
@@ -200,8 +205,22 @@ public class Arcade {
             System.out.println("caught an error: "+e);
         }
 
-        ArcadeGame activeGame = new ActiveGame("AHW0HK1F03",80,"Foosball",3);
+        ArcadeGame activeGame1 = new ActiveGame("AHW0HK1F01",100,"Foosball",3);
+        ArcadeGame activeGame2 = new ActiveGame("AHW0HK1F02",90,"Foosball",3);
+        ArcadeGame activeGame3 = new ActiveGame("AHW0HK1F03",80,"Foosball",3);
+        ArcadeGame activeGame4 = new ActiveGame("AHW0HK1F04",70,"Foosball",3);
+
         
-        arcade.addArcadeGame(activeGame);
+
+        arcade.addArcadeGame(activeGame1);
+        arcade.addArcadeGame(activeGame2);
+        arcade.addArcadeGame(activeGame3);
+
+        
+        System.out.println("median:" + arcade.getMedianGamePrice());
+
+        arcade.addArcadeGame(activeGame4);
+
+        System.out.println("median:" + arcade.getMedianGamePrice());
     }
 }

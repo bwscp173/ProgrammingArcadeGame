@@ -101,7 +101,7 @@ public class Simulation {
                     try {
                         arcadeGameToAdd = new VirtualRealityGame(gameId, pricePerPlay, gameName, ageRequirement, trackingType);
                     } catch (InvalidGameIdException e) {
-                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Warning Incorrect GameId given skipping1!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println("[Error]VirtualRealityGame constructor" + e);
                         continue;
                     }
                 }
@@ -111,7 +111,7 @@ public class Simulation {
                     try {
                         arcadeGameToAdd = new CabinetGame(gameId, pricePerPlay, gameName, givesReward);
                     } catch (InvalidGameIdException e) {
-                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Warning Incorrect GameId given skipping2!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println("[Error]CabinetGame constructor" + e);
                         continue;
                     }
                 }
@@ -121,7 +121,7 @@ public class Simulation {
                     try {
                         arcadeGameToAdd = new ActiveGame(gameId, pricePerPlay, gameId, ageRequirement);
                     } catch (InvalidGameIdException e) {
-                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Warning Incorrect GameId given skipping3!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println("[Error]ActiveGame constructor" + e);
                         continue;
                     }
                 }
@@ -194,7 +194,7 @@ public class Simulation {
                     try {
                         arcade.getCustomer(customerId).AddFunds(moneyToAdd);
                     } catch (InvalidCustomerException ex) {
-                        System.out.println("caught invalid customerId : " + customerId);
+                        System.out.println("[Error]from getCustomer: " + ex);
 
                         System.out.println("could not add £"+(double)moneyToAdd /100+" as we could not find that Id.");
                     }

@@ -28,6 +28,10 @@ History                  :  28/2/2025 v1.0 - added code
                                              it will be inherited from.
                                              calculatePrice now uses getPricePerPlay() not this.pricePerPlay.
 
+                            13/3/2025 v1.03 - more checking in the constructor method
+                                              for the gameId to not start with 'AV' as that is
+                                              a different class. then removed this as virtualRealityGame
+                                              extended from this class.
 ==================================================*/
 
 
@@ -47,7 +51,6 @@ public class ActiveGame extends ArcadeGame{
         super(gameId,pricePerPlay,name);
         this.ageRequirement = ageRequirement;
 
-        //validating gameId
         if(!gameId.startsWith("A")){
             throw new InvalidGameIdException("gameId invalid, does not start is a 'C'.");
         }
@@ -57,7 +60,7 @@ public class ActiveGame extends ArcadeGame{
     }
 
     public int getAgeRequirement() {
-        return ageRequirement;
+        return this.ageRequirement;
     }
 
     @Override
@@ -80,42 +83,44 @@ public class ActiveGame extends ArcadeGame{
         
         // testing
         // expected result: pass, as it is given the data from the file
-        //try {
-        //    ActiveGame gameIdTest1 = new ActiveGame("AHW0HK1F03",80,"Foosball",3);
-        //    System.out.println(gameIdTest1.getAgeRequirement());
-        //} catch (InvalidGameIdException ex) {
-        //    System.out.println("invalid gameid");
-        //}
+        try {
+           ActiveGame gameIdTest1 = new ActiveGame("AHW0HK1F03",80,"Foosball",3);
+           System.out.println(gameIdTest1.getAgeRequirement());
+        } catch (InvalidGameIdException ex) {
+           System.out.println("invalid gameid");
+        }
         // actual result: i was correct, no error was raised
         
         // expected result: InvalidGameIdException will get raised
-        //try {
-        //    ActiveGame gameIdTest2 = new ActiveGame("BHW0HK1F03",80,"Foosball",3);
-        //} catch (InvalidGameIdException ex) {
-        //    System.out.println("error");
-        //}
+        try {
+           ActiveGame gameIdTest2 = new ActiveGame("BHW0HK1F03",80,"Foosball",3);
+           gameIdTest2.getName();
+        } catch (InvalidGameIdException ex) {
+           System.out.println("error" + ex);
+        }
         // actual result: i was correct, an error was raised as gameId started with a B
 
         // expected result: InvalidGameIdException will get raised due to length.
-        //try {
-        //    ActiveGame gameIdTest2 = new ActiveGame("AHW0HK1F033",80,"Foosball",3);
-        //} catch (InvalidGameIdException ex) {
-        //    System.out.println("error"+ex);
-        //}
+        try {
+           ActiveGame gameIdTest3 = new ActiveGame("AHW0HK1F033",80,"Foosball",3);
+           gameIdTest3.getName();
+        } catch (InvalidGameIdException ex) {
+           System.out.println("error"+ex);
+        }
         // actual result: i was correct an error was raised "gameId invalid, does not contain exactly 10 alphanumeric characters."
 
 
         // testing for calculatePrice with a valid ActiveGame
-        //ActiveGame validgame = null;
-        //try {
-        //    validgame = new ActiveGame("AHW0HK1F03",80,"Foosball",3);
-        //} catch (InvalidGameIdException ex) {
-        //    System.out.println("invalid gameid");
-        //}
+        ActiveGame validgame = null;
+        try {
+           validgame = new ActiveGame("AHW0HK1F03",80,"Foosball",3);
+        } catch (InvalidGameIdException ex) {
+           System.out.println("invalid gameid");
+        }
 
-        //boolean isPeakHour=true;
-        //System.out.println("expected price 80, actual price :"+validgame.calculatePrice(isPeakHour));  // 80
-        //System.out.println("expected price 64, actual price :"+validgame.calculatePrice(!isPeakHour));  // 64
+        boolean isPeakHour=true;
+        System.out.println("expected price 80, actual price :"+validgame.calculatePrice(isPeakHour));  // 80
+        System.out.println("expected price 64, actual price :"+validgame.calculatePrice(!isPeakHour));  // 64
         // actual result: i was correct calculatePrice gave the expected price
     }
 }

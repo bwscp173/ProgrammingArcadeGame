@@ -63,7 +63,6 @@ public class CabinetGame extends ArcadeGame{
             }
         }
         // to round down
-        System.out.println(getPricePerPlay() + ":" + totalDiscount);
         return (int) Math.floor(getPricePerPlay() * totalDiscount);
     };
 
