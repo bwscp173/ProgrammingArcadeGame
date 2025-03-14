@@ -36,16 +36,14 @@ public class VirtualRealityGame extends ActiveGame{
 
     private EnumControlTypes ControlType;
     private enum EnumControlTypes {  HEADSETONLY,
-                                FULLBODYTRACKING,
-                                HEADSETANDCONTROLLER};
+                                    FULLBODYTRACKING,
+                                    HEADSETANDCONTROLLER};
     
 
     public VirtualRealityGame(String gameId, int pricePerPlay, String Name, int ageRequirement, String ControlType) throws InvalidGameIdException{
         super(gameId, pricePerPlay, Name, ageRequirement);
 
         switch (ControlType) {
-
-            // TODO check if this is allowed on the pass server
             case "headsetOnly" -> this.ControlType = EnumControlTypes.HEADSETONLY;
             case "fullBodyTracking" -> this.ControlType = EnumControlTypes.FULLBODYTRACKING;
             case "headsetAndController" -> this.ControlType = EnumControlTypes.HEADSETANDCONTROLLER;
