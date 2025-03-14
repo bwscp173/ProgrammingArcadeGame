@@ -20,6 +20,7 @@ History                  :  28/2/2025 v1.0 - added the constructor and calculate
 
                             1/3/2025 v1.01 - moved isAllAlphanumeric here as a protected function
                                              as all subclasses have the function
+
                             13/3/2025 v1.02 - gameId,pricePerPlay,name attributes are all final
                                               removed the setter methods for those attributes
 ==================================================*/
@@ -27,8 +28,7 @@ History                  :  28/2/2025 v1.0 - added the constructor and calculate
 
 
 public abstract class ArcadeGame{
-    //TODO look into making these final and removing the mutator methods?
-    protected final String gameId;  // also known as serial number
+    protected final String gameId;
     protected final int pricePerPlay;
     protected final String name;
     public ArcadeGame(String gameId, int pricePerPlay, String name){

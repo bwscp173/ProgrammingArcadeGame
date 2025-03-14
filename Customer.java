@@ -45,21 +45,12 @@ class AgeLimitException extends Exception{
 
 
 
-class InvalidGameIdException extends Exception{
-    public InvalidGameIdException(){}
-    public InvalidGameIdException(String message){
-        super(message);
-    }
-}
-
-
-
 public class Customer {
-    private String accountId;
-    private String Name;
-    private int Age;
+    private final String accountId;
+    private final String Name;
+    private final int Age;
 
-    private EnumPersonalDiscounts personalDiscount;
+    private final EnumPersonalDiscounts personalDiscount;
     private enum EnumPersonalDiscounts {NONE,STAFF,STUDENT}  //REMINDER students will be allowed a negative balance of upto -500
     private int accountBalance;  // 100 = £1
     
@@ -173,7 +164,6 @@ public class Customer {
 
     public static void main(String[] args) throws InvalidGameIdException,InsufficientBalanceException, AgeLimitException {
 
-        //TODO more testing?????
         // this is a test for when given a valid arcadegame does charging the customer work correctly
         // expected result: it will loop 2 times like normal, on the 3rd it will throw a InsufficientBalanceException
         ArcadeGame ag = new ActiveGame("AL2ETWHG0Q", 200, "Name",18);

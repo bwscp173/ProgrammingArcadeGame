@@ -96,49 +96,77 @@ public class VirtualRealityGame extends ActiveGame{
 
     public static void main(String[] args){
         //Testing took place on 28/02/25 around 12-1:30
-        //String gameId, int pricePerPlay, String Name, String ControlType
 
         // expected restult: error, InvalidgameId as gameId does not start with a AV everything else should be valid though
-        //VirtualRealityGame gameIdTest1 = new VirtualRealityGame("gameId",200,"GAMENAME","headsetOnly");
+        try {
+            VirtualRealityGame gameIdTest1 = new VirtualRealityGame("gameId",200,"GAMENAME",0,"headsetOnly");    
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         // given result: i was correct, "InvalidGameIdException: gameId invalid, does not start is a 'C'."
 
         // expected restult: error InvalidgameId as gameId does not contain 10 alphanumeric characters.
-        //VirtualRealityGame gameIdTest2 = new VirtualRealityGame("CgameId",200,"GAMENAME","headsetOnly");
+        try {
+            VirtualRealityGame gameIdTest2 = new VirtualRealityGame("CgameId",200,"GAMENAME",0,"headsetOnly");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         // given result: i was incorrect, "InvalidGameIdException: gameId invalid, does not start is a 'C'.".
         // fix: simple spelling mistake and i will now input the correct gameId, 
 
         // expected result: will throw an error for invalid String length.
-        //VirtualRealityGame gameIdTest3 = new VirtualRealityGame("AVgameId",200,"GAMENAME","headsetOnly");
+        try {
+            VirtualRealityGame gameIdTest3 = new VirtualRealityGame("AVgameId",200,"GAMENAME", 0,"headsetOnly");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+        
         // given result: i was correct, "InvalidGameIdException: gameId invalid, does not contain exactly 10 alphanumeric characters."
 
         // expected restult: incorrectly passes, as i am incorrectly checking for alphanumeric characters by just checking the length.
-        //VirtualRealityGame gameIdTest4 = new VirtualRealityGame("AV♀♂gameId",200,"GAMENAME","headsetOnly");
+        try {
+            VirtualRealityGame gameIdTest4 = new VirtualRealityGame("AV♀♂gameId",200,"GAMENAME", 0,"headsetOnly");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
         // given restuls: i was correct, no error message means it passes when it shouldnt of.
         // fix: i will rework/make the function to check the alphanumeric characters instead of just using .length()
 
 
         // expected result: pass as this is all valid
-        //VirtualRealityGame ControlTypeTest1 = new VirtualRealityGame("AVI1USPBNG", 0, "Virtual UEA Tour", "headsetOnly");
-        //System.out.println(ControlTypeTest1.getControlType());
+        VirtualRealityGame ControlTypeTest1;
+        try {
+            ControlTypeTest1 = new VirtualRealityGame("AVI1USPBNG", 0, "Virtual UEA Tour", 0, "headsetOnly");
+            System.out.println(ControlTypeTest1.getControlType());
+        } catch (InvalidGameIdException ex) {
+            System.out.println(ex);
+        }
         // given result: i was correct, output is HEADSETONLY
 
         // expected result: fail as headsetOnly is incorrectly capitalised so no value is set
-        //VirtualRealityGame ControlTypeTest2 = new VirtualRealityGame("AVI1USPBNG", 0, "Virtual UEA Tour", "hEaDsEtOnly");
-        //System.out.println(ControlTypeTest2.getControlType());
+        VirtualRealityGame ControlTypeTest2;
+        try {
+            ControlTypeTest2 = new VirtualRealityGame("AVI1USPBNG", 0, "Virtual UEA Tour", 0, "hEaDsEtOnly");
+            System.out.println(ControlTypeTest2.getControlType());
+        } catch (InvalidGameIdException ex) {
+            System.out.println(ex);
+        }
         // given result: i was correct, output is null
 
 
         //testing calculatePrice when given a valid VirtualRealityGame object
-        // VirtualRealityGame calculatePriceTest1 = null;
-        // VirtualRealityGame calculatePriceTest2 = null;
-        // VirtualRealityGame calculatePriceTest3 = null;
-        // try {
-        //     calculatePriceTest1 = new VirtualRealityGame("AVI1USPBNG", 100, "Virtual UEA Tour",0, "headsetOnly");
-        //     calculatePriceTest2 = new VirtualRealityGame("AVI1USPBNG", 100, "Virtual UEA Tour",0, "fullBodyTracking");
-        //     calculatePriceTest3 = new VirtualRealityGame("AVI1USPBNG", 100, "Virtual UEA Tour",0, "headsetAndController");
-        // } catch (InvalidGameIdException e) {
-        //     System.out.println(e);
-        // }
+        VirtualRealityGame calculatePriceTest1 = null;
+        VirtualRealityGame calculatePriceTest2 = null;
+        VirtualRealityGame calculatePriceTest3 = null;
+        try {
+            calculatePriceTest1 = new VirtualRealityGame("AVI1USPBNG", 100, "Virtual UEA Tour",0, "headsetOnly");
+            calculatePriceTest2 = new VirtualRealityGame("AVI1USPBNG", 100, "Virtual UEA Tour",0, "fullBodyTracking");
+            calculatePriceTest3 = new VirtualRealityGame("AVI1USPBNG", 100, "Virtual UEA Tour",0, "headsetAndController");
+        } catch (InvalidGameIdException e) {
+            System.out.println(e);
+        }
 
         // boolean isPeakHour = true;
         // System.out.println("expected price of  100, actual price of " + calculatePriceTest1.calculatePrice(isPeakHour));  //100

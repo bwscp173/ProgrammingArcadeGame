@@ -77,51 +77,51 @@ public class CabinetGame extends ArcadeGame{
 
     public static void main(String[] args){
         // expected result: pass, as this is all typical data
-        // CabinetGame gameIdTest1 = null;
-        // try{
-        //     gameIdTest1 = new CabinetGame("CBGCR27FQM",200,"GAMENAME", true);
-        // }catch(InvalidGameIdException e){
-        //     System.out.println(e);
-        // }
-        // System.out.println(gameIdTest1.toString());
+        CabinetGame gameIdTest1 = null;
+        try{
+            gameIdTest1 = new CabinetGame("CBGCR27FQM",200,"GAMENAME", true);
+        }catch(InvalidGameIdException e){
+            System.out.println(e);
+        }
+        System.out.println(gameIdTest1.toString());
         // actual result: i was correct, toString executed without error.
 
 
         // expected result: fail as gameId does not start with C
-        // CabinetGame gameIdTest2;
-        // try{
-        //     gameIdTest2 = new CabinetGame("BBGCR27FQM",200,"GAMENAME", true);
-        //     System.out.println(gameIdTest2.toString());
-        // }catch(InvalidGameIdException e){
-        //     System.out.println(e);
-        // }
+        CabinetGame gameIdTest2;
+        try{
+            gameIdTest2 = new CabinetGame("BBGCR27FQM",200,"GAMENAME", true);
+            System.out.println(gameIdTest2.toString());
+        }catch(InvalidGameIdException e){
+            System.out.println(e);
+        }
         // actual result: i was correct, "gameId invalid, does not start is a 'C'."
         
         // epected result: fail as gameId is too long.
-        // CabinetGame gameIdTest3;
-        // try{
-        //     gameIdTest3 = new CabinetGame("CBGCR27FQMMMM",200,"GAMENAME", true);
-        //     System.out.println(gameIdTest3.toString());
-        // }catch(InvalidGameIdException e){
-        //     System.out.println(e);
-        // }
+        CabinetGame gameIdTest3;
+        try{
+            gameIdTest3 = new CabinetGame("CBGCR27FQMMMM",200,"GAMENAME", true);
+            System.out.println(gameIdTest3.toString());
+        }catch(InvalidGameIdException e){
+            System.out.println(e);
+        }
         // actual result: i was correct, "gameId invalid, does not contain exactly 10 alphanumeric characters."
 
 
-        // CabinetGame calculatePriceTest1 = null;
-        // CabinetGame calculatePriceTest2 = null;
-        // try{
-        //     calculatePriceTest1 = new CabinetGame("CBGCR27FQM",200,"GAMENAME", true);
-        //     calculatePriceTest2 = new CabinetGame("CBGCR27FQM",200,"GAMENAME", false);
-        // }catch(InvalidGameIdException e){
-        //     System.out.println(e);
-        // }
-        // boolean isPeakHour = true;
-        // System.out.println("expected price of  200, actual price of " + calculatePriceTest1.calculatePrice(isPeakHour));  // 200
-        // System.out.println("expected price of  160, actual price of " + calculatePriceTest1.calculatePrice(!isPeakHour));  // 160
+        CabinetGame calculatePriceTest1 = null;
+        CabinetGame calculatePriceTest2 = null;
+        try{
+            calculatePriceTest1 = new CabinetGame("CBGCR27FQM",200,"GAMENAME", true);
+            calculatePriceTest2 = new CabinetGame("CBGCR27FQM",200,"GAMENAME", false);
+        }catch(InvalidGameIdException e){
+            System.out.println(e);
+        }
+        boolean isPeakHour = true;
+        System.out.println("expected price of  200, actual price of " + calculatePriceTest1.calculatePrice(isPeakHour));  // 200
+        System.out.println("expected price of  160, actual price of " + calculatePriceTest1.calculatePrice(!isPeakHour));  // 160
 
-        // System.out.println("expected price of  200, actual price of " + calculatePriceTest2.calculatePrice(isPeakHour));  // 200
-        // System.out.println("expected price of  100, actual price of " + calculatePriceTest2.calculatePrice(!isPeakHour));  //100
+        System.out.println("expected price of  200, actual price of " + calculatePriceTest2.calculatePrice(isPeakHour));  // 200
+        System.out.println("expected price of  100, actual price of " + calculatePriceTest2.calculatePrice(!isPeakHour));  //100
         // actual output was, 0,200 and 0,200
         // fix: missing ! when setting canGetDiscounted and was casting totalDiscount to int not double
         // causing any discount to set totalDiscount to 0
