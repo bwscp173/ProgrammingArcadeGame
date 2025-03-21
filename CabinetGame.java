@@ -19,6 +19,7 @@ History          :  28/2/2025 v1.0 - added code
                                      to ArcadeGame where it get inherritted from
                                      fixed calculatePrice, missing ! for boolean logic and wrongful cast to int not double.
 
+                    21/3/2025 v1.02 - added final keyword to the class
 ==================================================*/
 
 
@@ -31,7 +32,7 @@ class InvalidGameIdException extends Exception{
 }
 
 
-public class CabinetGame extends ArcadeGame{
+public final class CabinetGame extends ArcadeGame{
     private final boolean givesReward;  // only needs a accessor method
     public CabinetGame(String gameId, int pricePerPlay, String Name, boolean givesReward) throws InvalidGameIdException{
         super(gameId,pricePerPlay,Name);

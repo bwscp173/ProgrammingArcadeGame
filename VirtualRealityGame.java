@@ -18,7 +18,9 @@ History          :  28/2/2025 v1.0 - added all the code then did the testing as 
                                      9:11 fixed the isAllAphanumeic function and logic using that value
                                      10:58pm fixed the toString method by removing the format function.
 
-                    1/3/2025 v1.0 - removed isAllAlphanumeric as it gets inherited from ArcadeGame
+                    1/3/2025 v1.01 - removed isAllAlphanumeric as it gets inherited from ArcadeGame
+
+                    21/3/2025 v1.02 - added final keyword to the class
 ==================================================*/
 
 
@@ -32,7 +34,7 @@ class InvalidGameIdException extends Exception{
 
 
 
-public class VirtualRealityGame extends ActiveGame{
+public final class VirtualRealityGame extends ActiveGame{
 
     private EnumControlTypes ControlType;
     private enum EnumControlTypes {  HEADSETONLY,

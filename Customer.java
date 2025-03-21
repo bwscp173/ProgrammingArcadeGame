@@ -23,6 +23,8 @@ History                  :  28/2/2025 v1.0 - finished coding at 3:30pm now doing
                             13/3/2025 v1.1 - now using .getClass().getSimpleName() to get
                                             the class name instead of checking the class's
                                             toString() result
+                            
+                            21/3/2025 v1.11 - added final keyword to the class
 ==================================================*/
 
 
@@ -45,7 +47,7 @@ class AgeLimitException extends Exception{
 
 
 
-public class Customer {
+public final class Customer {
     private final String accountId;
     private final String Name;
     private final int Age;
@@ -153,7 +155,7 @@ public class Customer {
     public int getAccountBalance(){
         return this.accountBalance;
     }
-    public EnumPersonalDiscounts getPersonalDiscount(){
+    private EnumPersonalDiscounts getPersonalDiscount(){
         return this.personalDiscount;
     }
 

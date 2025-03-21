@@ -32,6 +32,8 @@ History                  :  28/2/2025 v1.0 - added code
                                               for the gameId to not start with 'AV' as that is
                                               a different class. then removed this as virtualRealityGame
                                               extended from this class.
+                            
+                            19/3/2025 v1.04 - made ageRequirement private
 ==================================================*/
 
 
@@ -46,7 +48,7 @@ class InvalidGameIdException extends Exception{
 
 
 public class ActiveGame extends ArcadeGame{
-    protected final int ageRequirement;  // only needs accessor for this field not setter
+    private final int ageRequirement;  // only needs accessor for this field not setter
     public ActiveGame(String gameId, int pricePerPlay, String name, int ageRequirement) throws InvalidGameIdException{
         super(gameId,pricePerPlay,name);
         this.ageRequirement = ageRequirement;
@@ -59,7 +61,7 @@ public class ActiveGame extends ArcadeGame{
         }
     }
 
-    public int getAgeRequirement() {
+    protected int getAgeRequirement() {
         return this.ageRequirement;
     }
 

@@ -28,6 +28,10 @@ History                  :  28/2/2025 v1.0 - 4:04 started, added the custom exce
                                               fixed countArcadeGames()
                                               now using .getClass().getSimpleName().equals instead of checking
                                               the toString output
+                            
+                            14/3/2025 v1.03 - added a toString method()
+
+                            21/3/2025 v1.02 - added final keyword to the class
 ==================================================*/
 
 import java.util.ArrayList;
@@ -42,16 +46,7 @@ class InvalidCustomerException extends Exception{
 
 
 
-class InvalidGameIdException extends Exception{
-    public InvalidGameIdException(){}
-    public InvalidGameIdException(String message){
-        super(message);
-    }
-}
-
-
-
-public class Arcade {
+public final class Arcade {
     private final String arcadeName;
     private final ArrayList<ArcadeGame> ArcadeGameCollection;
     private final ArrayList<Customer> customerCollection;
@@ -187,7 +182,15 @@ public class Arcade {
     return true;
     }
 
-    public static void main(String[] args) throws InvalidGameIdException{
+    public ArrayList<Customer> getCustomerCollection(){
+        return this.customerCollection;
+    }
+
+    @Override
+    public String toString(){
+        return "this is a Arcade object, arcadeName " + getArcadeName() + "ArcadeGameCollection size: " + getArcadeGameCollection().size() + ", customerCollection size: " + getCustomerCollection().size() + ", revenue: "+ getRevenue();
+    }
+    public static void main(String[] args){
         // a test for the addCustomer along with getCustomer
         Customer customer1 = new Customer("748A66", "name1", 18, "STUDENT",500);
         Customer customer2 = new Customer("1C6498", "name2", 18, "STUDENT",500);
@@ -205,22 +208,27 @@ public class Arcade {
             System.out.println("caught an error: "+e);
         }
 
-        ArcadeGame activeGame1 = new ActiveGame("AHW0HK1F01",100,"Foosball",3);
-        ArcadeGame activeGame2 = new ActiveGame("AHW0HK1F02",90,"Foosball",3);
-        ArcadeGame activeGame3 = new ActiveGame("AHW0HK1F03",80,"Foosball",3);
-        ArcadeGame activeGame4 = new ActiveGame("AHW0HK1F04",70,"Foosball",3);
-
-        
-
-        arcade.addArcadeGame(activeGame1);
-        arcade.addArcadeGame(activeGame2);
-        arcade.addArcadeGame(activeGame3);
-
-        
-        System.out.println("median:" + arcade.getMedianGamePrice());
-
-        arcade.addArcadeGame(activeGame4);
-
-        System.out.println("median:" + arcade.getMedianGamePrice());
+        try {
+            ArcadeGame activeGame1 = new ActiveGame("AHW0HK1F01",100,"Foosball",3);
+            ArcadeGame activeGame2 = new ActiveGame("AHW0HK1F02",90,"Foosball",3);
+            ArcadeGame activeGame3 = new ActiveGame("AHW0HK1F03",80,"Foosball",3);
+            ArcadeGame activeGame4 = new ActiveGame("AHW0HK1F04",70,"Foosball",3);
+    
+            
+    
+            arcade.addArcadeGame(activeGame1);
+            arcade.addArcadeGame(activeGame2);
+            arcade.addArcadeGame(activeGame3);
+    
+            
+            System.out.println("median:" + arcade.getMedianGamePrice());
+    
+            arcade.addArcadeGame(activeGame4);
+    
+            System.out.println("median:" + arcade.getMedianGamePrice());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        System.out.println(arcade);
     }
 }

@@ -28,7 +28,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Simulation {
+public final class Simulation {
     public static void main(String[] args) throws FileNotFoundException{
         
         File customersFile = new File("customers.txt");

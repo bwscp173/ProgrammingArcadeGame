@@ -23,14 +23,17 @@ History                  :  28/2/2025 v1.0 - added the constructor and calculate
 
                             13/3/2025 v1.02 - gameId,pricePerPlay,name attributes are all final
                                               removed the setter methods for those attributes
+                            
+                            19/3/2025 v1.03 - all attributes are now privated not protected
+                                              and getter methods are all protected
 ==================================================*/
 
 
 
 public abstract class ArcadeGame{
-    protected final String gameId;
-    protected final int pricePerPlay;
-    protected final String name;
+    private final String gameId;
+    private final int pricePerPlay;
+    private final String name;
     public ArcadeGame(String gameId, int pricePerPlay, String name){
         this.gameId = gameId;
         this.pricePerPlay = pricePerPlay;
@@ -49,15 +52,15 @@ public abstract class ArcadeGame{
         return true;
     }
 
-    public String getGameId() {
+    protected String getGameId() {
         return this.gameId;
     }
 
-    public int getPricePerPlay() {
+    protected int getPricePerPlay() {
         return this.pricePerPlay;
     }
 
-    public String getName() {
+    protected String getName() {
         return this.name;
     }
 }
