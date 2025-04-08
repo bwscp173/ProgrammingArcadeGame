@@ -36,7 +36,7 @@ class InvalidGameIdException extends Exception{
 
 public final class VirtualRealityGame extends ActiveGame{
 
-    private EnumControlTypes ControlType;
+    private EnumControlTypes ControlType;  // cant be final as the switch case cannot have a defualt statement
     private enum EnumControlTypes {  HEADSETONLY,
                                     FULLBODYTRACKING,
                                     HEADSETANDCONTROLLER};

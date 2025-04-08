@@ -178,7 +178,7 @@ public final class Arcade {
             return false;
         }
 
-        this.revenue -= amountCharged;
+        this.revenue += amountCharged;
     return true;
     }
 

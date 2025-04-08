@@ -53,7 +53,9 @@ public final class Simulation {
         
         System.out.println(arcade.findRichestCustomer());
         
-        System.out.println("the median price is :" + arcade.getMedianGamePrice());
+        System.out.println("the median price is: " + arcade.getMedianGamePrice());
+
+        System.out.println("the total revenue is: " + arcade.getRevenue());
         System.out.println("==================================================");
         
     }
