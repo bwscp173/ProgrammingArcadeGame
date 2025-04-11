@@ -43,7 +43,7 @@ public final class Simulation {
         simulateFun(arcade, transactionsFile);
 
 
-        System.out.println("==================================================");
+        System.out.println("\n\n==================================================");
         Arcade.printCorporateJargon();
         
         int[] stats = arcade.countArcadeGames();
@@ -51,12 +51,12 @@ public final class Simulation {
         System.out.println("number of active games in this arcade (not including vr):" + stats[1]);
         System.out.println("number of virtual reality games in this arcade:" + stats[2]);
         
-        System.out.println(arcade.findRichestCustomer());
+        System.out.println("the richest customer is: " + arcade.findRichestCustomer());
         
         System.out.println("the median price is: " + arcade.getMedianGamePrice());
 
         System.out.println("the total revenue is: " + arcade.getRevenue());
-        System.out.println("==================================================");
+        System.out.println("==================================================\n\n");
         
     }
 
@@ -78,7 +78,7 @@ public final class Simulation {
         return contents;
     }
 
-    public static Arcade initialiseArcade(String arcadeName, File gamesFile, File customerFile) throws FileNotFoundException{
+    public static Arcade initialiseArcade(String arcadeName, File gamesFile, File customerFile){
         Arcade newArcadeObj = new Arcade(arcadeName);
         
         ArrayList<String> gamesFileContens = readFromFile(gamesFile);
@@ -127,6 +127,11 @@ public final class Simulation {
                         continue;
                     }
                 }
+            }
+
+            if (arcadeGameToAdd != null){
+                // will stay null if it couldnt initilise
+                System.out.println(arcadeGameToAdd);
             }
             
             newArcadeObj.addArcadeGame(arcadeGameToAdd);

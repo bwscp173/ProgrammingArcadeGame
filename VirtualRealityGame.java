@@ -93,7 +93,7 @@ public final class VirtualRealityGame extends ActiveGame{
 
     @Override
     public String toString(){
-        return "This is a VirtualRealityGame obj, gameId: "+getGameId()+",pricePerPlay: "+getPricePerPlay()+", Name: "+getName()+",ControlType: " +getControlType();
+        return this.getClass().getSimpleName()+"{gameId: "+this.getGameId()+", pricePerPlay: "+this.getPricePerPlay()+", Name: "+this.getName()+", ControlType: "+getControlType()+"}";
     }
 
     public static void main(String[] args){
@@ -102,7 +102,7 @@ public final class VirtualRealityGame extends ActiveGame{
         // expected restult: error, InvalidgameId as gameId does not start with a AV everything else should be valid though
         try {
             VirtualRealityGame gameIdTest1 = new VirtualRealityGame("gameId",200,"GAMENAME",0,"headsetOnly");    
-            System.out.println(gameIdTest1.getClass());
+            System.out.println(gameIdTest1);
         } catch (InvalidGameIdException e) {
             System.out.println(e);
         }
@@ -146,6 +146,7 @@ public final class VirtualRealityGame extends ActiveGame{
         try {
             ControlTypeTest1 = new VirtualRealityGame("AVI1USPBNG", 0, "Virtual UEA Tour", 0, "headsetOnly");
             System.out.println(ControlTypeTest1.getControlType());
+            System.out.println(ControlTypeTest1);
         } catch (InvalidGameIdException ex) {
             System.out.println(ex);
         }

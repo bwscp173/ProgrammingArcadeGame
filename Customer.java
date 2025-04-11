@@ -161,7 +161,8 @@ public final class Customer {
 
     @Override
     public String toString(){
-        return "This is a Customer object. accountID, "+getAccountId()+", name "+getName()+", age "+getAge()+", discounttype "+getPersonalDiscount()+", balance "+getAccountBalance();
+        return this.getClass().getSimpleName()+"{accountID: "+this.getAccountId()+", name: "+this.getName()+", age: "+this.getAge()+", discounttype: "+this.getPersonalDiscount()+", balance "+this.getAccountBalance()+"}";
+
     }
 
     public static void main(String[] args) throws InsufficientBalanceException, AgeLimitException {
@@ -181,7 +182,7 @@ public final class Customer {
             try {
                 customer.chargeAccount(ag, true);
                 System.out.println(i +" : "+ customer.toString());    
-            } catch (Exception e) {
+            } catch (AgeLimitException | InsufficientBalanceException e) {
                 System.out.println("[Error]when charging account");
             }
         }

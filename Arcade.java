@@ -130,23 +130,25 @@ public final class Arcade {
     }
     
     public int[] countArcadeGames(){
-        int totalArcadeGames = getArcadeGameCollection().size();
 
+        int totalCabinetGames = 0;
         int totalActiveGames = 0;
+        int totalVirtualgames = 0;
         for (ArcadeGame arcadegame : this.ArcadeGameCollection) {
+            if (arcadegame.getClass().getSimpleName().equals("ActiveGame")){
+                totalCabinetGames += 1;
+            }
+
             if (arcadegame.getClass().getSimpleName().equals("ActiveGame")){
                 totalActiveGames += 1;
             }
-        }
 
-        int totalVirtualgames = 0;
-        for (ArcadeGame arcadegame : this.ArcadeGameCollection) {
             if (arcadegame.getClass().getSimpleName().equals("VirtualRealityGame")){
                 totalVirtualgames += 1;
             }
         }
 
-        int[] toReturn = {totalArcadeGames, totalActiveGames ,totalVirtualgames};
+        int[] toReturn = {totalCabinetGames, totalActiveGames ,totalVirtualgames};
         return toReturn;
     }
     

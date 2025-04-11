@@ -78,7 +78,7 @@ public class ActiveGame extends ArcadeGame{
 
     @Override
     public String toString(){
-        return "This is a ActiveGame obj. gameId "+getGameId()+", pricePerPlay "+getPricePerPlay()+", name "+getName()+", ageRequirement "+getAgeRequirement();
+        return this.getClass().getSimpleName()+"{gameId: "+this.getGameId()+", pricePerPlay: "+this.getPricePerPlay()+", Name: "+this.getName()+", ageRequirement: "+this.getAgeRequirement()+"}";
     }
 
     public static void main(String[] args) {

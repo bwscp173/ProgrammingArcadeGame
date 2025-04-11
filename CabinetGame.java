@@ -73,7 +73,8 @@ public final class CabinetGame extends ArcadeGame{
 
     @Override
     public String toString(){
-        return "This is a CabinetGame obj, gameId: "+getGameId()+",pricePerPlay: "+getPricePerPlay()+", Name: "+getName()+",GiveReward: "+getGivesReward();
+        return this.getClass().getSimpleName()+"{gameId: "+this.getGameId()+", pricePerPlay: "+this.getPricePerPlay()+", Name: "+this.getName()+", GiveReward: "+this.getGivesReward()+"}";
+
     }
 
     public static void main(String[] args){
