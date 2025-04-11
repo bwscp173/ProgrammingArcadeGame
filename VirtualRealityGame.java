@@ -21,16 +21,9 @@ History          :  28/2/2025 v1.0 - added all the code then did the testing as 
                     1/3/2025 v1.01 - removed isAllAlphanumeric as it gets inherited from ArcadeGame
 
                     21/3/2025 v1.02 - added final keyword to the class
+
+                    11/04/2025 v1.03 - better toString
 ==================================================*/
-
-
-
-class InvalidGameIdException extends Exception{
-    public InvalidGameIdException(){}
-    public InvalidGameIdException(String message){
-        super(message);
-    }
-}
 
 
 

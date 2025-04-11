@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public final class Simulation {
-    public static void main(String[] args) throws FileNotFoundException{
+    public static void main(String[] args){
         
         File customersFile = new File("customers.txt");
         File arcadeGamesFile = new File("games.txt");

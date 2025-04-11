@@ -25,25 +25,9 @@ History                  :  28/2/2025 v1.0 - finished coding at 3:30pm now doing
                                             toString() result
                             
                             21/3/2025 v1.11 - added final keyword to the class
+
+                            11/04/2025 v1.12 - better toString
 ==================================================*/
-
-
-
-class InsufficientBalanceException extends Exception{
-    public InsufficientBalanceException(){}
-    public InsufficientBalanceException(String message){
-        super(message);
-    }
-}
-
-
-
-class AgeLimitException extends Exception{
-    public AgeLimitException(){}
-    public AgeLimitException(String message){
-        super(message);
-    }
-}
 
 
 

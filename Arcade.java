@@ -37,19 +37,6 @@ History                  :  28/2/2025 v1.0 - 4:04 started, added the custom exce
 import java.util.ArrayList;
 import java.util.Arrays;
 
-class InvalidCustomerException extends Exception{
-    public InvalidCustomerException(){}
-    public InvalidCustomerException(String message){
-        super(message);
-    }
-}
-
-class InvalidGameIdException extends Exception{
-    public InvalidGameIdException(){}
-    public InvalidGameIdException(String message){
-        super(message);
-    }
-}
 
 
 public final class Arcade {

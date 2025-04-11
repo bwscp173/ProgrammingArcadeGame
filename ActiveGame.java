@@ -34,16 +34,13 @@ History                  :  28/2/2025 v1.0 - added code
                                               extended from this class.
                             
                             19/3/2025 v1.04 - made ageRequirement private
+
+                            11/04/2025 v1.05 - better toString
 ==================================================*/
 
 
 
-class InvalidGameIdException extends Exception{
-    public InvalidGameIdException(){}
-    public InvalidGameIdException(String message){
-        super(message);
-    }
-}
+
 
 
 

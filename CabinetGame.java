@@ -20,10 +20,12 @@ History          :  28/2/2025 v1.0 - added code
                                      fixed calculatePrice, missing ! for boolean logic and wrongful cast to int not double.
 
                     21/3/2025 v1.02 - added final keyword to the class
+
+                    11/04/2025 v1.03 - better toString
 ==================================================*/
 
 
-
+// TODO REMOVE THIS IT WORKS WITHOUT IT JUST SHOWS ALOT OF ERRORS FOR SOME REASON
 class InvalidGameIdException extends Exception{
     public InvalidGameIdException(){}
     public InvalidGameIdException(String message){
