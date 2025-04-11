@@ -78,13 +78,13 @@ public final class CabinetGame extends ArcadeGame{
 
     public static void main(String[] args){
         // expected result: pass, as this is all typical data
-        CabinetGame gameIdTest1 = null;
+        CabinetGame gameIdTest1;
         try{
             gameIdTest1 = new CabinetGame("CBGCR27FQM",200,"GAMENAME", true);
+            System.out.println(gameIdTest1.toString());
         }catch(InvalidGameIdException e){
             System.out.println(e);
         }
-        System.out.println(gameIdTest1.toString());
         // actual result: i was correct, toString executed without error.
 
 
@@ -109,20 +109,20 @@ public final class CabinetGame extends ArcadeGame{
         // actual result: i was correct, "gameId invalid, does not contain exactly 10 alphanumeric characters."
 
 
-        CabinetGame calculatePriceTest1 = null;
-        CabinetGame calculatePriceTest2 = null;
+        CabinetGame calculatePriceTest1;
+        CabinetGame calculatePriceTest2;
         try{
             calculatePriceTest1 = new CabinetGame("CBGCR27FQM",200,"GAMENAME", true);
             calculatePriceTest2 = new CabinetGame("CBGCR27FQM",200,"GAMENAME", false);
+            boolean isPeakHour = true;
+            System.out.println("expected price of  200, actual price of " + calculatePriceTest1.calculatePrice(isPeakHour));  // 200
+            System.out.println("expected price of  160, actual price of " + calculatePriceTest1.calculatePrice(!isPeakHour));  // 160
+    
+            System.out.println("expected price of  200, actual price of " + calculatePriceTest2.calculatePrice(isPeakHour));  // 200
+            System.out.println("expected price of  100, actual price of " + calculatePriceTest2.calculatePrice(!isPeakHour));  //100
         }catch(InvalidGameIdException e){
             System.out.println(e);
         }
-        boolean isPeakHour = true;
-        System.out.println("expected price of  200, actual price of " + calculatePriceTest1.calculatePrice(isPeakHour));  // 200
-        System.out.println("expected price of  160, actual price of " + calculatePriceTest1.calculatePrice(!isPeakHour));  // 160
-
-        System.out.println("expected price of  200, actual price of " + calculatePriceTest2.calculatePrice(isPeakHour));  // 200
-        System.out.println("expected price of  100, actual price of " + calculatePriceTest2.calculatePrice(!isPeakHour));  //100
         // actual output was, 0,200 and 0,200
         // fix: missing ! when setting canGetDiscounted and was casting totalDiscount to int not double
         // causing any discount to set totalDiscount to 0

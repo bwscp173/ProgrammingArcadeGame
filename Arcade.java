@@ -232,7 +232,7 @@ public final class Arcade {
             arcade.addArcadeGame(activeGame4);
     
             System.out.println("median:" + arcade.getMedianGamePrice());
-        } catch (Exception e) {
+        } catch (InvalidGameIdException e) {
             System.out.println(e);
         }
         System.out.println(arcade);

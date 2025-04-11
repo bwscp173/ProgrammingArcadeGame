@@ -102,7 +102,8 @@ public final class VirtualRealityGame extends ActiveGame{
         // expected restult: error, InvalidgameId as gameId does not start with a AV everything else should be valid though
         try {
             VirtualRealityGame gameIdTest1 = new VirtualRealityGame("gameId",200,"GAMENAME",0,"headsetOnly");    
-        } catch (Exception e) {
+            System.out.println(gameIdTest1.getClass());
+        } catch (InvalidGameIdException e) {
             System.out.println(e);
         }
         // given result: i was correct, "InvalidGameIdException: gameId invalid, does not start is a 'C'."
@@ -110,7 +111,8 @@ public final class VirtualRealityGame extends ActiveGame{
         // expected restult: error InvalidgameId as gameId does not contain 10 alphanumeric characters.
         try {
             VirtualRealityGame gameIdTest2 = new VirtualRealityGame("CgameId",200,"GAMENAME",0,"headsetOnly");
-        } catch (Exception e) {
+            System.out.println(gameIdTest2.getClass());
+        } catch (InvalidGameIdException e) {
             System.out.println(e);
         }
         // given result: i was incorrect, "InvalidGameIdException: gameId invalid, does not start is a 'C'.".
@@ -119,7 +121,8 @@ public final class VirtualRealityGame extends ActiveGame{
         // expected result: will throw an error for invalid String length.
         try {
             VirtualRealityGame gameIdTest3 = new VirtualRealityGame("AVgameId",200,"GAMENAME", 0,"headsetOnly");
-        } catch (Exception e) {
+            System.out.println(gameIdTest3.getClass());
+        } catch (InvalidGameIdException e) {
             System.out.println(e);
         }
         
@@ -129,7 +132,8 @@ public final class VirtualRealityGame extends ActiveGame{
         // expected restult: incorrectly passes, as i am incorrectly checking for alphanumeric characters by just checking the length.
         try {
             VirtualRealityGame gameIdTest4 = new VirtualRealityGame("AV♀♂gameId",200,"GAMENAME", 0,"headsetOnly");
-        } catch (Exception e) {
+            System.out.println(gameIdTest4.getClass());
+        } catch (InvalidGameIdException e) {
             System.out.println(e);
         }
         
@@ -159,13 +163,16 @@ public final class VirtualRealityGame extends ActiveGame{
 
 
         //testing calculatePrice when given a valid VirtualRealityGame object
-        VirtualRealityGame calculatePriceTest1 = null;
-        VirtualRealityGame calculatePriceTest2 = null;
-        VirtualRealityGame calculatePriceTest3 = null;
+        VirtualRealityGame calculatePriceTest1;
+        VirtualRealityGame calculatePriceTest2;
+        VirtualRealityGame calculatePriceTest3;
         try {
             calculatePriceTest1 = new VirtualRealityGame("AVI1USPBNG", 100, "Virtual UEA Tour",0, "headsetOnly");
             calculatePriceTest2 = new VirtualRealityGame("AVI1USPBNG", 100, "Virtual UEA Tour",0, "fullBodyTracking");
             calculatePriceTest3 = new VirtualRealityGame("AVI1USPBNG", 100, "Virtual UEA Tour",0, "headsetAndController");
+            System.out.println(calculatePriceTest1.getClass());
+            System.out.println(calculatePriceTest2.getClass());
+            System.out.println(calculatePriceTest3.getClass());
         } catch (InvalidGameIdException e) {
             System.out.println(e);
         }
