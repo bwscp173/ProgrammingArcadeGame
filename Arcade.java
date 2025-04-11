@@ -44,6 +44,12 @@ class InvalidCustomerException extends Exception{
     }
 }
 
+class InvalidGameIdException extends Exception{
+    public InvalidGameIdException(){}
+    public InvalidGameIdException(String message){
+        super(message);
+    }
+}
 
 
 public final class Arcade {
@@ -112,7 +118,7 @@ public final class Arcade {
 
         Arrays.sort(allPrices);
 
-        if (((double) (getArcadeGameCollection().size())) / 2 != getArcadeGameCollection().size() / 2) {
+        if (((double) (getArcadeGameCollection().size())) / 2 == getArcadeGameCollection().size() / 2) {
             // when there is an even amount of ArcadeGame machines
             return (allPrices[getArcadeGameCollection().size() / 2] + allPrices[(getArcadeGameCollection().size() + 1) / 2]) / 2;
         }

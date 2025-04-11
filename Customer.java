@@ -164,11 +164,17 @@ public final class Customer {
         return "This is a Customer object. accountID, "+getAccountId()+", name "+getName()+", age "+getAge()+", discounttype "+getPersonalDiscount()+", balance "+getAccountBalance();
     }
 
-    public static void main(String[] args) throws InvalidGameIdException,InsufficientBalanceException, AgeLimitException {
+    public static void main(String[] args) throws InsufficientBalanceException, AgeLimitException {
 
         // this is a test for when given a valid arcadegame does charging the customer work correctly
         // expected result: it will loop 2 times like normal, on the 3rd it will throw a InsufficientBalanceException
-        ArcadeGame ag = new ActiveGame("AL2ETWHG0Q", 200, "Name",18);
+        
+        
+        ArcadeGame ag = null;
+        try {
+            ag = new ActiveGame("AL2ETWHG0Q", 200, "Name",18);
+        } catch (InvalidGameIdException ex) {
+        }
         Customer customer = new Customer("accountID", "Name", 18,"NONE",500);
 
         for (int i = 0; i < 4; i++) {
@@ -186,7 +192,13 @@ public final class Customer {
         
         // same testing but the Customers discount type is now Student
         // expected result: it will manage to loop all 4 times with the balance going negative
-        ArcadeGame ag2 = new ActiveGame("AL2ETWHG0Q", 200, "Name",18);
+
+        
+        ArcadeGame ag2 = null;
+        try {
+            ag2 = new ActiveGame("AL2ETWHG0Q", 200, "Name",18);
+        } catch (InvalidGameIdException ex) {
+        }
         Customer customer2 = new Customer("accountID", "Name", 18,"STUDENT",500);
 
         for (int i = 0; i < 4; i++) {
