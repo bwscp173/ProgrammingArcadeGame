@@ -3,15 +3,14 @@
 
 File                     :  Arcade.java
 
-date                     :  28/2/2025
+date                     :  14/4/2025
 
 Author                   :  Benedict Ward
 
 Description              :  worth upto 25 marks, mainly linking up the types of arcade games
                             to customers
 
-Possible Exceptions      :  FileNotFoundException
-
+Possible Exceptions      :  
 
 History                  :  28/2/2025 v1.0 - made the static helper function readFromFile
                                              initialiseArcade now reads from both given files
@@ -19,14 +18,15 @@ History                  :  28/2/2025 v1.0 - made the static helper function rea
                                              and when prompted gave mantis toboggan as the richest customer
                                              11:18pm moved checking the gameType to a switch case statement
                             1/3/2025 v1.01 - fully account for possible Exception
+
+                            14/4/2025 v1.02 - better FileNotFoundException handling
 ==================================================*/
-
-
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+
 
 public final class Simulation {
     public static void main(String[] args){
@@ -35,12 +35,22 @@ public final class Simulation {
         File arcadeGamesFile = new File("games.txt");
         File transactionsFile = new File("transactions.txt"); 
 
-
-        Arcade arcade = initialiseArcade("arcadeName", arcadeGamesFile, customersFile);
+        Arcade arcade = null;
+        
+        try {
+            arcade = initialiseArcade("arcadeName", arcadeGamesFile, customersFile);
+        } catch (FileNotFoundException ex) {
+            System.out.println("[ERROR]initialiseArcade cannot find file '"+arcadeGamesFile+"' and or '" +customersFile+"'.");
+            System.exit(-1);
+        }
 
         
-        
-        simulateFun(arcade, transactionsFile);
+        try {
+            simulateFun(arcade, transactionsFile);
+        } catch (FileNotFoundException ex) {
+            System.out.println("[ERROR]simulateFun cannot find file '"+transactionsFile+"'.");
+            System.exit(-1);
+        }
 
 
         System.out.println("\n\n==================================================");
@@ -53,32 +63,30 @@ public final class Simulation {
         
         System.out.println("the richest customer is: " + arcade.findRichestCustomer());
         
-        System.out.println("the median price is: " + arcade.getMedianGamePrice());
+        //using printf as to always keep 2 decimal places 
+        System.out.printf("the median price is: £%.2f\n", ((double)arcade.getMedianGamePrice()) / 100);
 
-        System.out.println("the total revenue is: " + arcade.getRevenue());
+        System.out.println("the total revenue is: £" + ((double) arcade.getRevenue()) / 100);
         System.out.println("==================================================\n\n");
         
     }
 
-    public static ArrayList<String> readFromFile(File fileObj){
+    public static ArrayList<String> readFromFile(File fileObj) throws FileNotFoundException{
         ArrayList<String> contents = new ArrayList<>();
         // code copied and then modified from https://www.w3schools.com/java/java_files_read.asp
-        try {
-            try(Scanner myReader = new Scanner(fileObj)){
-                while (myReader.hasNextLine()) {
-                    String current_line = myReader.nextLine();
-                    contents.add(current_line);  // added this line
-                }
-                myReader.close();
-                }
+
+        try(Scanner myReader = new Scanner(fileObj)){
+            while (myReader.hasNextLine()) {
+                String current_line = myReader.nextLine();
+                contents.add(current_line);  // added this line
             }
-        catch (FileNotFoundException e) {
-            System.out.println("file not found");
+            myReader.close();
         }
+
         return contents;
     }
 
-    public static Arcade initialiseArcade(String arcadeName, File gamesFile, File customerFile){
+    public static Arcade initialiseArcade(String arcadeName, File gamesFile, File customerFile) throws FileNotFoundException{
         Arcade newArcadeObj = new Arcade(arcadeName);
         
         ArrayList<String> gamesFileContens = readFromFile(gamesFile);
@@ -160,7 +168,7 @@ public final class Simulation {
         return newArcadeObj;
     }
 
-    public static void simulateFun(Arcade arcade, File transactionFile){
+    public static void simulateFun(Arcade arcade, File transactionFile) throws FileNotFoundException{
         ArrayList<String> transactionFileContense = readFromFile(transactionFile);
         
         for (String line : transactionFileContense) {

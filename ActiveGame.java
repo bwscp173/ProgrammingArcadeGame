@@ -40,10 +40,6 @@ History                  :  28/2/2025 v1.0 - added code
 
 
 
-
-
-
-
 public class ActiveGame extends ArcadeGame{
     private final int ageRequirement;  // only needs accessor for this field not setter
     public ActiveGame(String gameId, int pricePerPlay, String name, int ageRequirement) throws InvalidGameIdException{

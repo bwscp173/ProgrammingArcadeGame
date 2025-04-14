@@ -1,37 +1,39 @@
 /*==================================================
 
 
-File             :  CabinetGame.java
+File                     :  CabinetGame.java
 
-date             :  28/2/2025
+date                     :  14/4/2025
 
-Author           :  Benedict Ward
+Author                   :  Benedict Ward
 
-Description      :  this class and ActiveGame counts up to 10 marks,
+Description              :  this class and ActiveGame counts up to 10 marks,
 
-History          :  28/2/2025 v1.0 - added code
-                                     4:17pm fixed edge case where the characters 
-                                     where not checked only the length was
-                                     9:11pm fixed the isAllAphanumeic function and logic using that value
-                                     10:58pm fixed the toString method by removing the format function.
+Possible Exceptions      :  InvalidGameIdException from CabinetGame
 
-                    3/1/2025 v1.01 - moved the helper function isAllAlphanumeric
-                                     to ArcadeGame where it get inherritted from
-                                     fixed calculatePrice, missing ! for boolean logic and wrongful cast to int not double.
+History                  :  28/2/2025 v1.0 - added code
+                                             4:17pm fixed edge case where the characters 
+                                             where not checked only the length was
+                                             9:11pm fixed the isAllAphanumeic function and logic using that value
+                                             10:58pm fixed the toString method by removing the format function.
 
-                    21/3/2025 v1.02 - added final keyword to the class
+                            3/1/2025 v1.01 - moved the helper function isAllAlphanumeric
+                                             to ArcadeGame where it get inherritted from
+                                             fixed calculatePrice, missing ! for boolean logic and wrongful cast to int not double.
 
-                    11/04/2025 v1.03 - better toString
+                            21/3/2025 v1.02 - added final keyword to the class
+
+                            11/04/2025 v1.03 - better toString
 ==================================================*/
 
 
 // TODO REMOVE THIS IT WORKS WITHOUT IT JUST SHOWS ALOT OF ERRORS FOR SOME REASON
-class InvalidGameIdException extends Exception{
-    public InvalidGameIdException(){}
-    public InvalidGameIdException(String message){
-        super(message);
-    }
-}
+class InvalidGameIdException extends Exception{// TODO REMOVE THIS IT WORKS WITHOUT IT JUST SHOWS ALOT OF ERRORS FOR SOME REASON
+    public InvalidGameIdException(){}// TODO REMOVE THIS IT WORKS WITHOUT IT JUST SHOWS ALOT OF ERRORS FOR SOME REASON
+    public InvalidGameIdException(String message){// TODO REMOVE THIS IT WORKS WITHOUT IT JUST SHOWS ALOT OF ERRORS FOR SOME REASON
+        super(message);// TODO REMOVE THIS IT WORKS WITHOUT IT JUST SHOWS ALOT OF ERRORS FOR SOME REASON
+    }// TODO REMOVE THIS IT WORKS WITHOUT IT JUST SHOWS ALOT OF ERRORS FOR SOME REASON
+}// TODO REMOVE THIS IT WORKS WITHOUT IT JUST SHOWS ALOT OF ERRORS FOR SOME REASON
 
 
 public final class CabinetGame extends ArcadeGame{

@@ -3,7 +3,7 @@
 
 File                     :  ArcadeGame.java
 
-date                     :  28/2/2025
+date                     :  14/4/2025
 
 Author                   :  Benedict Ward
 
@@ -12,7 +12,7 @@ Description              :  this class counts up to 10 marks
                             with the class it's self being abstract along with calculatePrice
                             for "basis for the cabinet game and active game subclasses".
 
-
+Possible Exceptions      :  
                             
 History                  :  28/2/2025 v1.0 - added the constructor and calculatePrice
                                              plus accessor and mutator methods.

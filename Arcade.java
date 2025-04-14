@@ -3,15 +3,15 @@
 
 File                     :  Arcade.java
 
-date                     :  28/2/2025
+date                     :  14/4/2025
 
 Author                   :  Benedict Ward
 
 Description              :  worth upto 25 marks, mainly linking up the types of arcade games
                             to customers
 
-Possible Exceptions      :  InvalidCustomerException
-                            InvalidgameIdException
+Possible Exceptions      :  InvalidCustomerException from getCustomer
+                            InvalidGameIdException from getArcadeGame
 
 
 History                  :  28/2/2025 v1.0 - 4:04 started, added the custom exception,
@@ -33,7 +33,6 @@ History                  :  28/2/2025 v1.0 - 4:04 started, added the custom exce
 
                             21/3/2025 v1.02 - added final keyword to the class
 ==================================================*/
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -43,7 +42,7 @@ public final class Arcade {
     private final String arcadeName;
     private final ArrayList<ArcadeGame> ArcadeGameCollection;
     private final ArrayList<Customer> customerCollection;
-    private double revenue;  // cant be final as revenue will change 
+    private int revenue;  // cant be final as revenue will change 
 
     public Arcade(String arcadeName){
         this.arcadeName = arcadeName;
@@ -147,7 +146,7 @@ public final class Arcade {
         return this.arcadeName;
     }
 
-    public double getRevenue() {
+    public int getRevenue() {
         return this.revenue;
     }
     

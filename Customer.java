@@ -3,7 +3,7 @@
 
 File                     :  Customer.java
 
-date                     :  28/2/2025
+date                     :  14/4/2025
 
 Author                   :  Benedict Ward
 
@@ -149,7 +149,7 @@ public final class Customer {
 
     }
 
-    public static void main(String[] args) throws InsufficientBalanceException, AgeLimitException {
+    public static void main(String[] args){
 
         // this is a test for when given a valid arcadegame does charging the customer work correctly
         // expected result: it will loop 2 times like normal, on the 3rd it will throw a InsufficientBalanceException
@@ -187,7 +187,11 @@ public final class Customer {
         Customer customer2 = new Customer("accountID", "Name", 18,"STUDENT",500);
 
         for (int i = 0; i < 4; i++) {
-           customer2.chargeAccount(ag2, true);
+            try {
+                customer2.chargeAccount(ag2, true);
+            } catch (InsufficientBalanceException | AgeLimitException e) {
+                System.out.println("[ERROR]"+e);
+            }
            System.out.println(i +" : "+ customer2.toString());
         }
         // given result: i was correct, looped 4 times with balance going from 500->310->120->-70->-260
