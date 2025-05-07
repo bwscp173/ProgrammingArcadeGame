@@ -57,7 +57,7 @@ public final class Simulation {
         Arcade.printCorporateJargon();
         
         int[] stats = arcade.countArcadeGames();
-        System.out.println("total number of cabinetgames in this arcade: " + stats[0]);
+        System.out.println("total number of cabinet games in this arcade: " + stats[0]);
         System.out.println("number of active games in this arcade (not including vr):" + stats[1]);
         System.out.println("number of virtual reality games in this arcade:" + stats[2]);
         
@@ -139,7 +139,7 @@ public final class Simulation {
 
             if (arcadeGameToAdd != null){
                 // will stay null if it couldnt initilise
-                System.out.println(arcadeGameToAdd);
+                System.out.println("adding arcadegame: " + arcadeGameToAdd);
             }
             
             newArcadeObj.addArcadeGame(arcadeGameToAdd);
@@ -181,6 +181,7 @@ public final class Simulation {
                     boolean peakTime = lineData[3].equals("PEAK");
 
                     arcade.processTransaction(customerId, gameId, peakTime);
+                    System.out.println("processed transaction : {customerId: "+customerId+", gameId: "+gameId+", peakTime: "+peakTime+"}");
                 }
                 case "NEW_CUSTOMER" -> {
                     String name = lineData[2];
@@ -202,12 +203,14 @@ public final class Simulation {
                     Customer newCustomer = new Customer(customerId, name, age, discountType, initalBalance);
                 
                     arcade.addCustomer(newCustomer);
+                    System.out.println("added new customer: "+newCustomer.toString());
                 }
                 case "ADD_FUNDS" -> {
                     int moneyToAdd = Integer.parseInt(lineData[2]);
                     
                     try {
                         arcade.getCustomer(customerId).AddFunds(moneyToAdd);
+                        System.out.println("successfully added funds: {customerId: "+customerId+", moneyToAdd: "+moneyToAdd+"}");
                     } catch (InvalidCustomerException ex) {
                         System.out.println("[Error]from getCustomer: " + ex);
 

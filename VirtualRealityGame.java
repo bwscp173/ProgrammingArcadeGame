@@ -3,7 +3,7 @@
 
 File             :  VirtualRealityGame.java
 
-date             :  28/2/2025
+date             :  7/5/2025
 
 Author           :  Benedict Ward
 
@@ -30,7 +30,7 @@ History          :  28/2/2025 v1.0 - added all the code then did the testing as 
 public final class VirtualRealityGame extends ActiveGame{
 
     private EnumControlTypes ControlType;  // cant be final as the switch case cannot have a defualt statement
-    private enum EnumControlTypes {  HEADSETONLY,
+    public enum EnumControlTypes {  HEADSETONLY,
                                     FULLBODYTRACKING,
                                     HEADSETANDCONTROLLER};
     
@@ -65,7 +65,7 @@ public final class VirtualRealityGame extends ActiveGame{
         return this.ControlType == EnumControlTypes.HEADSETANDCONTROLLER;
     }
 
-    public EnumControlTypes getControlType(){
+    private EnumControlTypes getControlType(){
         return this.ControlType;
     }
 

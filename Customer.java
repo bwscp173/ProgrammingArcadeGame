@@ -14,10 +14,9 @@ Possible Exceptions      :  InsufficientBalanceException from chargeAccount
 
 
 History                  :  28/2/2025 v1.0 - finished coding at 3:30pm now doing testing
-                                            3:50 found a 
                                             10:59pm fixed the toString method by removing the format function.
 
-                            1/3/2025 v1.0 - chargeAccount now uses getAccountBalance() instead
+                            1/3/2025 v1.01 - chargeAccount now uses getAccountBalance() instead
                                             of this.accountBalance, same with age.
 
                             13/3/2025 v1.1 - now using .getClass().getSimpleName() to get
@@ -37,7 +36,7 @@ public final class Customer {
     private final int Age;
 
     private final EnumPersonalDiscounts personalDiscount;
-    private enum EnumPersonalDiscounts {NONE,STAFF,STUDENT}  //REMINDER students will be allowed a negative balance of upto -500
+    public enum EnumPersonalDiscounts {NONE,STAFF,STUDENT}  //REMINDER students will be allowed a negative balance of upto -500
     private int accountBalance;  // 100 = £1
     
     public Customer(String accountId, String Name, int Age, String discountType){

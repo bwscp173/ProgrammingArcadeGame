@@ -27,14 +27,6 @@ History                  :  28/2/2025 v1.0 - added code
 ==================================================*/
 
 
-// TODO REMOVE THIS IT WORKS WITHOUT IT JUST SHOWS ALOT OF ERRORS FOR SOME REASON
-class InvalidGameIdException extends Exception{// TODO REMOVE THIS IT WORKS WITHOUT IT JUST SHOWS ALOT OF ERRORS FOR SOME REASON
-    public InvalidGameIdException(){}// TODO REMOVE THIS IT WORKS WITHOUT IT JUST SHOWS ALOT OF ERRORS FOR SOME REASON
-    public InvalidGameIdException(String message){// TODO REMOVE THIS IT WORKS WITHOUT IT JUST SHOWS ALOT OF ERRORS FOR SOME REASON
-        super(message);// TODO REMOVE THIS IT WORKS WITHOUT IT JUST SHOWS ALOT OF ERRORS FOR SOME REASON
-    }// TODO REMOVE THIS IT WORKS WITHOUT IT JUST SHOWS ALOT OF ERRORS FOR SOME REASON
-}// TODO REMOVE THIS IT WORKS WITHOUT IT JUST SHOWS ALOT OF ERRORS FOR SOME REASON
-
 
 public final class CabinetGame extends ArcadeGame{
     private final boolean givesReward;  // only needs a accessor method

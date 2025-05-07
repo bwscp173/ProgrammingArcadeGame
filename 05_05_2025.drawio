@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36 OPR/117.0.0.0" version="26.1.1" pages="2">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 OPR/118.0.0.0" version="26.2.10" pages="2">
   <diagram name="Page-1" id="YbKHbEE8iHiC9F7ehbTG">
-    <mxGraphModel dx="667" dy="801" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="660" dy="807" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -8,7 +8,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="d1XX603mpNLF9Gp9eIDP" name="Page-2">
-    <mxGraphModel dx="1638" dy="1405" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="260" dy="1207" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -75,11 +75,11 @@
         <mxCell id="Yb9C6HVZmCvFQ4KGCBC0-36" value="Arcade" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="2080" y="421" width="282" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="Yb9C6HVZmCvFQ4KGCBC0-37" value="-arcadeName: String&lt;div&gt;-ArcadeGameCollection: ArrayList&amp;lt;ArcadeGame&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;-customrecollection: ArrayList&amp;lt;Customer&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;-revenue: int&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="2080" y="451" width="282" height="60" as="geometry" />
+        <mxCell id="Yb9C6HVZmCvFQ4KGCBC0-37" value="-arcadeName: String&lt;div&gt;-ArcadeGameCollection: hashMap&amp;lt;String ArcadeGame&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;-customrecollection:&amp;nbsp;&lt;/span&gt;hashMap&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;lt;String, Customer&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;-revenue: int&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="2080" y="451" width="282" height="72" as="geometry" />
         </mxCell>
         <mxCell id="Yb9C6HVZmCvFQ4KGCBC0-38" value="&lt;div&gt;+Arcade(String)&lt;/div&gt;&lt;div&gt;+addCustomer(Customer): void&lt;/div&gt;&lt;div&gt;+addArcadeGame(Arcadegame): void&lt;/div&gt;&lt;div&gt;+getCustomer(String): Customer&lt;/div&gt;&lt;div&gt;+getArcadeGame(String): ArcadeGame&lt;/div&gt;&lt;div&gt;+findRichestCustomer(): Customer&lt;/div&gt;&lt;div&gt;+getMedianGamePrice(): int&lt;/div&gt;&lt;div&gt;+countArcadeGames(): int[]&lt;/div&gt;&lt;div&gt;+printCorporateJargon():void&lt;/div&gt;&lt;div&gt;+processTransaction(String,String,boolean):boolean&lt;/div&gt;&lt;div&gt;+toString(): String&lt;/div&gt;&lt;div&gt;+main(String[]): void&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="2080" y="511" width="282" height="184" as="geometry" />
+          <mxGeometry x="2080" y="523" width="282" height="184" as="geometry" />
         </mxCell>
         <mxCell id="Yb9C6HVZmCvFQ4KGCBC0-40" value="&lt;div&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/div&gt;EnumPersonalDiscrounts&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px; text-align: start; text-wrap-mode: nowrap;&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20value%3D%22%26lt%3Bdiv%26gt%3B%26amp%3Blt%3B%26amp%3Blt%3Benumeration%26amp%3Bgt%3B%26amp%3Bgt%3B%26lt%3B%2Fdiv%26gt%3BEnumControlTypes%22%20style%3D%22rounded%3D0%3BwhiteSpace%3Dwrap%3Bhtml%3D1%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22783%22%20y%3D%22393%22%20width%3D%22173%22%20height%3D%2242%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="2276" y="69" width="173" height="42" as="geometry" />
@@ -234,22 +234,22 @@
         <mxCell id="_UG-74EUqqMKkNAQZAU--1" value="Confirmed Done!" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="1063" y="300" width="501" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="0pLtRRN_taZyCpTbcBj9-1" value="InvalidCustomerException" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="0pLtRRN_taZyCpTbcBj9-1" value="InvalidCustomerException" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="2496" y="524" width="185" height="33" as="geometry" />
         </mxCell>
-        <mxCell id="0pLtRRN_taZyCpTbcBj9-2" value="+InvalidGameIdException(String)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="0pLtRRN_taZyCpTbcBj9-2" value="+InvalidGameIdException(String)" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="2496" y="557" width="185" height="33" as="geometry" />
         </mxCell>
-        <mxCell id="0pLtRRN_taZyCpTbcBj9-3" value="java.lang.Exception" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="0pLtRRN_taZyCpTbcBj9-3" value="java.lang.Exception" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="2764" y="526" width="123" height="35" as="geometry" />
         </mxCell>
-        <mxCell id="0pLtRRN_taZyCpTbcBj9-4" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;fontSize=12;curved=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="0pLtRRN_taZyCpTbcBj9-1">
+        <mxCell id="0pLtRRN_taZyCpTbcBj9-4" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;fontSize=12;curved=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="0pLtRRN_taZyCpTbcBj9-1" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="2641" y="734" as="sourcePoint" />
             <mxPoint x="2764" y="541.5" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="0pLtRRN_taZyCpTbcBj9-5" value="&amp;lt;&amp;lt;throws&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;fontSize=12;curved=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="Yb9C6HVZmCvFQ4KGCBC0-36" target="0pLtRRN_taZyCpTbcBj9-1">
+        <mxCell id="0pLtRRN_taZyCpTbcBj9-5" value="&amp;lt;&amp;lt;throws&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;fontSize=12;curved=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="Yb9C6HVZmCvFQ4KGCBC0-36" target="0pLtRRN_taZyCpTbcBj9-1" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="2372" y="446" as="sourcePoint" />
             <mxPoint x="2506" y="446" as="targetPoint" />
