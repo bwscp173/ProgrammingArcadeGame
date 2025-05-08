@@ -154,18 +154,26 @@ public final class Arcade {
         try {
             arcadeGameObj = getArcadeGame(gameId);
         } catch (InvalidGameIdException e) {
+            System.out.println("[error]invalidGameIdException for id:"+gameId);
             return false;
         }
         
         try {
             customer = getCustomer(customerId);
         } catch (InvalidCustomerException e) {
+            System.out.println("[error]InvalidCustomerException for customer id: "+ customerId);
             return false;
         }
 
         try {
             amountCharged = customer.chargeAccount(arcadeGameObj, peak);
-        } catch (InsufficientBalanceException | AgeLimitException e) {
+        } catch (AgeLimitException exception) {
+            System.out.println("[error pt1]AgeLimitException for {arcadegameobj:"+arcadeGameObj+", peak: "+peak+"}");
+            System.out.println("[error pt2]the customers info is "+customer);
+            return false;
+        } catch (InsufficientBalanceException exception){
+            System.out.println("[error pt1]InvalidCustomerException for {arcadegameobj:"+arcadeGameObj+", peak: "+peak+"}");
+            System.out.println("[error pt2]the customers info is "+customer);
             return false;
         }
 

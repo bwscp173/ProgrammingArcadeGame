@@ -25,17 +25,18 @@ History          :  28/2/2025 v1.0 - added all the code then did the testing as 
                     11/04/2025 v1.03 - better toString
 ==================================================*/
 
+public final class VirtualRealityGame extends ActiveGame {
 
+    private EnumControlTypes ControlType; // cant be final as the switch case cannot have a defualt statement
 
-public final class VirtualRealityGame extends ActiveGame{
+    public enum EnumControlTypes {
+        HEADSETONLY,
+        FULLBODYTRACKING,
+        HEADSETANDCONTROLLER
+    };
 
-    private EnumControlTypes ControlType;  // cant be final as the switch case cannot have a defualt statement
-    public enum EnumControlTypes {  HEADSETONLY,
-                                    FULLBODYTRACKING,
-                                    HEADSETANDCONTROLLER};
-    
-
-    public VirtualRealityGame(String gameId, int pricePerPlay, String Name, int ageRequirement, String ControlType) throws InvalidGameIdException{
+    public VirtualRealityGame(String gameId, int pricePerPlay, String Name, int ageRequirement, String ControlType)
+            throws InvalidGameIdException {
         super(gameId, pricePerPlay, Name, ageRequirement);
 
         switch (ControlType) {
@@ -44,28 +45,27 @@ public final class VirtualRealityGame extends ActiveGame{
             case "headsetAndController" -> this.ControlType = EnumControlTypes.HEADSETANDCONTROLLER;
         }
 
-        //validating gameId
-        if(!gameId.startsWith("AV")){
+        // validating gameId
+        if (!gameId.startsWith("AV")) {
             throw new InvalidGameIdException("gameId invalid, does not start is a 'AV'.");
-        }
-        else if(!(isAllAlphanumeric(gameId) && (gameId.length() == 10))){
+        } else if (!(isAllAlphanumeric(gameId) && (gameId.length() == 10))) {
             throw new InvalidGameIdException("gameId invalid, does not contain exactly 10 alphanumeric characters.");
         }
     }
 
-    public boolean isHeadsetOnly(){
+    public boolean isHeadsetOnly() {
         return this.ControlType == EnumControlTypes.HEADSETONLY;
     }
 
-    public boolean isFullBodyTracking(){
+    public boolean isFullBodyTracking() {
         return this.ControlType == EnumControlTypes.FULLBODYTRACKING;
     }
 
-    public boolean isHeadsetAndController(){
+    public boolean isHeadsetAndController() {
         return this.ControlType == EnumControlTypes.HEADSETANDCONTROLLER;
     }
 
-    private EnumControlTypes getControlType(){
+    private EnumControlTypes getControlType() {
         return this.ControlType;
     }
 
@@ -73,11 +73,10 @@ public final class VirtualRealityGame extends ActiveGame{
     protected int calculatePrice(boolean isPeakHour) {
         boolean canGetDiscounted = !isPeakHour;
         double totalDiscount = 1;
-        if (canGetDiscounted){
-            if(isHeadsetOnly()){
+        if (canGetDiscounted) {
+            if (isHeadsetOnly()) {
                 totalDiscount -= 0.10;
-            }
-            else if(isHeadsetAndController()){
+            } else if (isHeadsetAndController()) {
                 totalDiscount -= 0.05;
             }
         }
@@ -85,54 +84,61 @@ public final class VirtualRealityGame extends ActiveGame{
     }
 
     @Override
-    public String toString(){
-        return this.getClass().getSimpleName()+"{gameId: "+this.getGameId()+", pricePerPlay: "+this.getPricePerPlay()+", Name: "+this.getName()+", ControlType: "+getControlType()+"}";
+    public String toString() {
+        return this.getClass().getSimpleName() + "{gameId: " + this.getGameId() + ", pricePerPlay: "
+                + this.getPricePerPlay() + ", Name: " + this.getName() + ", ControlType: " + getControlType() + "}";
     }
 
-    public static void main(String[] args){
-        //Testing took place on 28/02/25 around 12-1:30
+    public static void main(String[] args) {
+        // Testing took place on 28/02/25 around 12-1:30
 
-        // expected restult: error, InvalidgameId as gameId does not start with a AV everything else should be valid though
+        // expected restult: error, InvalidgameId as gameId does not start with a AV
+        // everything else should be valid though
         try {
-            VirtualRealityGame gameIdTest1 = new VirtualRealityGame("gameId",200,"GAMENAME",0,"headsetOnly");    
+            VirtualRealityGame gameIdTest1 = new VirtualRealityGame("gameId", 200, "GAMENAME", 0, "headsetOnly");
             System.out.println(gameIdTest1);
         } catch (InvalidGameIdException e) {
             System.out.println(e);
         }
-        // given result: i was correct, "InvalidGameIdException: gameId invalid, does not start is a 'C'."
+        // given result: i was correct, "InvalidGameIdException: gameId invalid, does
+        // not start is a 'C'."
 
-        // expected restult: error InvalidgameId as gameId does not contain 10 alphanumeric characters.
+        // expected restult: error InvalidgameId as gameId does not contain 10
+        // alphanumeric characters.
         try {
-            VirtualRealityGame gameIdTest2 = new VirtualRealityGame("CgameId",200,"GAMENAME",0,"headsetOnly");
+            VirtualRealityGame gameIdTest2 = new VirtualRealityGame("CgameId", 200, "GAMENAME", 0, "headsetOnly");
             System.out.println(gameIdTest2.getClass());
         } catch (InvalidGameIdException e) {
             System.out.println(e);
         }
-        // given result: i was incorrect, "InvalidGameIdException: gameId invalid, does not start is a 'C'.".
-        // fix: simple spelling mistake and i will now input the correct gameId, 
+        // given result: i was incorrect, "InvalidGameIdException: gameId invalid, does
+        // not start is a 'C'.".
+        // fix: simple spelling mistake and i will now input the correct gameId,
 
         // expected result: will throw an error for invalid String length.
         try {
-            VirtualRealityGame gameIdTest3 = new VirtualRealityGame("AVgameId",200,"GAMENAME", 0,"headsetOnly");
+            VirtualRealityGame gameIdTest3 = new VirtualRealityGame("AVgameId", 200, "GAMENAME", 0, "headsetOnly");
             System.out.println(gameIdTest3.getClass());
         } catch (InvalidGameIdException e) {
             System.out.println(e);
         }
-        
-        
-        // given result: i was correct, "InvalidGameIdException: gameId invalid, does not contain exactly 10 alphanumeric characters."
 
-        // expected restult: incorrectly passes, as i am incorrectly checking for alphanumeric characters by just checking the length.
+        // given result: i was correct, "InvalidGameIdException: gameId invalid, does
+        // not contain exactly 10 alphanumeric characters."
+
+        // expected restult: incorrectly passes, as i am incorrectly checking for
+        // alphanumeric characters by just checking the length.
         try {
-            VirtualRealityGame gameIdTest4 = new VirtualRealityGame("AV♀♂gameId",200,"GAMENAME", 0,"headsetOnly");
+            VirtualRealityGame gameIdTest4 = new VirtualRealityGame("AV♀♂gameId", 200, "GAMENAME", 0, "headsetOnly");
             System.out.println(gameIdTest4.getClass());
         } catch (InvalidGameIdException e) {
             System.out.println(e);
         }
-        
-        // given restuls: i was correct, no error message means it passes when it shouldnt of.
-        // fix: i will rework/make the function to check the alphanumeric characters instead of just using .length()
 
+        // given restuls: i was correct, no error message means it passes when it
+        // shouldnt of.
+        // fix: i will rework/make the function to check the alphanumeric characters
+        // instead of just using .length()
 
         // expected result: pass as this is all valid
         VirtualRealityGame ControlTypeTest1;
@@ -145,7 +151,8 @@ public final class VirtualRealityGame extends ActiveGame{
         }
         // given result: i was correct, output is HEADSETONLY
 
-        // expected result: fail as headsetOnly is incorrectly capitalised so no value is set
+        // expected result: fail as headsetOnly is incorrectly capitalised so no value
+        // is set
         VirtualRealityGame ControlTypeTest2;
         try {
             ControlTypeTest2 = new VirtualRealityGame("AVI1USPBNG", 0, "Virtual UEA Tour", 0, "hEaDsEtOnly");
@@ -155,15 +162,15 @@ public final class VirtualRealityGame extends ActiveGame{
         }
         // given result: i was correct, output is null
 
-
-        //testing calculatePrice when given a valid VirtualRealityGame object
+        // testing calculatePrice when given a valid VirtualRealityGame object
         VirtualRealityGame calculatePriceTest1;
         VirtualRealityGame calculatePriceTest2;
         VirtualRealityGame calculatePriceTest3;
         try {
-            calculatePriceTest1 = new VirtualRealityGame("AVI1USPBNG", 100, "Virtual UEA Tour",0, "headsetOnly");
-            calculatePriceTest2 = new VirtualRealityGame("AVI1USPBNG", 100, "Virtual UEA Tour",0, "fullBodyTracking");
-            calculatePriceTest3 = new VirtualRealityGame("AVI1USPBNG", 100, "Virtual UEA Tour",0, "headsetAndController");
+            calculatePriceTest1 = new VirtualRealityGame("AVI1USPBNG", 100, "Virtual UEA Tour", 0, "headsetOnly");
+            calculatePriceTest2 = new VirtualRealityGame("AVI1USPBNG", 100, "Virtual UEA Tour", 0, "fullBodyTracking");
+            calculatePriceTest3 = new VirtualRealityGame("AVI1USPBNG", 100, "Virtual UEA Tour", 0,
+                    "headsetAndController");
             System.out.println(calculatePriceTest1.getClass());
             System.out.println(calculatePriceTest2.getClass());
             System.out.println(calculatePriceTest3.getClass());
@@ -172,28 +179,33 @@ public final class VirtualRealityGame extends ActiveGame{
         }
 
         // boolean isPeakHour = true;
-        // System.out.println("expected price of  100, actual price of " + calculatePriceTest1.calculatePrice(isPeakHour));  //100
-        // System.out.println("expected price of  90, actual price of " + calculatePriceTest1.calculatePrice(!isPeakHour));  // 90
+        // System.out.println("expected price of 100, actual price of " +
+        // calculatePriceTest1.calculatePrice(isPeakHour)); //100
+        // System.out.println("expected price of 90, actual price of " +
+        // calculatePriceTest1.calculatePrice(!isPeakHour)); // 90
 
-        // System.out.println("expected price of  100, actual price of " + calculatePriceTest2.calculatePrice(isPeakHour));  // 100
-        // System.out.println("expected price of  100, actual price of " + calculatePriceTest2.calculatePrice(!isPeakHour));  // 100
+        // System.out.println("expected price of 100, actual price of " +
+        // calculatePriceTest2.calculatePrice(isPeakHour)); // 100
+        // System.out.println("expected price of 100, actual price of " +
+        // calculatePriceTest2.calculatePrice(!isPeakHour)); // 100
 
-        // System.out.println("expected price of  100, actual price of " + calculatePriceTest3.calculatePrice(isPeakHour));  // 100
-        // System.out.println("expected price of  95, actual price of " + calculatePriceTest3.calculatePrice(!isPeakHour));  // 95
-        //fix: missing ! when setting canGetDiscounted + wrongful cast to int for totalDiscount. now casts to double
-        // after these corrections i get the correct output of 100,90 and 100,100 and 100,95
+        // System.out.println("expected price of 100, actual price of " +
+        // calculatePriceTest3.calculatePrice(isPeakHour)); // 100
+        // System.out.println("expected price of 95, actual price of " +
+        // calculatePriceTest3.calculatePrice(!isPeakHour)); // 95
+        // fix: missing ! when setting canGetDiscounted + wrongful cast to int for
+        // totalDiscount. now casts to double
+        // after these corrections i get the correct output of 100,90 and 100,100 and
+        // 100,95
 
+        // error stats:
+        // gameIdTest expected pass rate : actual pass rate (75%)
+        // 4 : 3
 
-
-
-        //error stats:
-        // gameIdTest       expected pass rate : actual pass rate    (75%)
-        //                                   4 : 3
-        
-        // ControlTypeTest  expected pass rate : actual pass rate    (100%)
-        //                                   2 : 2   
+        // ControlTypeTest expected pass rate : actual pass rate (100%)
+        // 2 : 2
 
         // where expected pass rate means i expect one result
-        // and atual pass is when the result is the expected 
+        // and atual pass is when the result is the expected
     }
 }

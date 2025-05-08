@@ -91,7 +91,7 @@ public final class Customer {
         int fullPrice = arcadeGameObj.calculatePrice(peakTime);
 
         int price = (int) (Math.floor(fullPrice * discountFactor));
-    
+        
         if (0 < (getAccountBalance() - price) || (-500 < (getAccountBalance() - price) && canGoNegative)) {
             // the user has enough funds to pay
 

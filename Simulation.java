@@ -129,7 +129,7 @@ public final class Simulation {
                 case "active" -> {
                     ageRequirement = Integer.parseInt(lineData[4]);
                     try {
-                        arcadeGameToAdd = new ActiveGame(gameId, pricePerPlay, gameId, ageRequirement);
+                        arcadeGameToAdd = new ActiveGame(gameId, pricePerPlay, gameName, ageRequirement);
                     } catch (InvalidGameIdException e) {
                         System.out.println("[Error]ActiveGame constructor" + e);
                         continue;
